@@ -2,16 +2,23 @@
 
 版本 v1.0.1
 
-#### 简介
+### 简介
+
   * 插件封装基本 sql 语句提供接口用于单表查询。
   * 插件接口仅仅用于后端查询数据库构建 api 返回给前端。
   * 插件涉及的接口一般不会直接暴露给前端环境(demo 内的方式仅供参考)。
 
-#### 使用
+### 作为插件使用
   * npm install mysql_help --save-dev
   * let mysqlHelp = require("mysqlHelp")
   * mysqlHelp('数据库名称', '要操作的表名称', '配置文件')
   * 以下数据库仅仅只适用于 mysql 数据库, 插件提供的所有接口返回的都是 primise 对象。
+
+### 只是想连接数据库测试插件接口是否可用
+
+  * 确保安装 mysql 数据库, 修改 /demo/config/config.example.js 文件名称为 config.js 且修改配置。
+  * 在 /demo/config/db.enum.js 文件中填入需要查询的表结构。  
+  * npm i && npm run dev
 
 #### 查询数据库数据
 
