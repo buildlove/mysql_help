@@ -130,6 +130,31 @@ db_operation.prototype.selectAll = function (tableName) {
 }
 
 /**
+ * 按照页码查询数据
+ * @param {number} pageNum 当前第N页
+ * @param {number} everyPageNum 每页N页
+ */
+db_operation.prototype.selectByPageCount = function (tableName, pageNum, everyPageNum) {
+  let me = this;
+  let sql = `select * from ${tableName} limit ${pageNum * everyPageNum},${pageNum * everyPageNum + everyPageNum}`;
+  this._debug(sql)
+
+  return new Promise(function (resolve, reject) {
+    me._getConnetion(sql, function (err, result, fields) {
+      if (err) {
+        reject(err);
+      } else {
+        if (result && result.length) {
+          resolve({ status: 1, result: result });
+        } else {
+          resolve({ status: 0, msg: '没有查询到任何数据' });
+        }
+      }
+    })
+  })
+}
+
+/**
  * 查询数据库数据
  */
 db_operation.prototype.select = function (tableName, where, text) {

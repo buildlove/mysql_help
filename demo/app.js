@@ -17,6 +17,7 @@ app.use(koaBody({
 }));
 
 router.post('/getAllRows', getAllRows);
+router.post('/getRowsByPageCount', getRowsByPageCount);
 router.post('/getRowsByIds', getRowsByIds);
 router.post('/getRowsByIndexs', getRowsByIndexs);
 router.post('/getRowsByWhere', getRowsByWhere);
@@ -28,6 +29,13 @@ router.post('/deleteRows', deleteRows);
 // null
 async function getAllRows(ctx) {
   ctx.body = await new mysqlHelp("user").getAllRows();
+}
+
+// 前端传递参数格式
+// {pageNum:0, everyPageNum:2}
+async function getRowsByPageCount(ctx) {
+  console.log(ctx.request.body)
+  ctx.body = await new mysqlHelp("user").getRowsByPageCount(ctx.request.body.pageNum, ctx.request.body.everyPageNum);
 }
 
 // 前端传递参数格式
@@ -86,4 +94,4 @@ async function deleteRows(ctx) {
 
 app.use(router.routes());
 
-if (!module.parent) app.listen(3000);
+if (!module.parent) app.listen(3001);

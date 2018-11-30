@@ -46,6 +46,13 @@ mysql_help.prototype.getAllRows = function(){
 }
 
 /**
+ * 获取数据通过页码和每条数目
+ */
+mysql_help.prototype.getRowsByPageCount = function (pageNum, everyPageNum) {
+  return this.db_operation.selectByPageCount(this.table_name, pageNum, everyPageNum);
+}
+
+/**
  * 根据 id 或者 ids 获取相关数据
  * @param {*} ids   <array> 需要查询的数组 id
  * @param {*} otherField  <string> 其它字段

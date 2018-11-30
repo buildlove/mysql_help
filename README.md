@@ -14,16 +14,17 @@
   * mysqlHelp('数据库名称', '要操作的表名称', '配置文件')
   * 以下数据库仅仅只适用于 mysql 数据库, 插件提供的所有接口返回的都是 primise 对象。
 
-### 只是想连接数据库测试插件接口是否可用
+### 只是连接数据库测试插件接口是否可用
 
-  * 确保安装 mysql 数据库, 修改 /demo/config/config.example.js 文件名称为 config.js 且修改配置。
+  * 确保安装 mysql 数据库, 确保数据库内有jobs名称的数据库以及表结构名称和/demo/config/db.enum.js一样
   * 在 /demo/config/db.enum.js 文件中填入需要查询的表结构。  
   * npm i && npm run dev
 
 ### 查询数据库数据
 
   * 得到整个表的数据。                             // getAllRows
-  * 使用 id 查询数据库数据。                      // getRowsByIds
+  * 按照页码和限制每页数量查询数据。                // getRowsByPageCount 
+  * 使用 id 查询数据库数据。                       // getRowsByIds
   * 使用多个 id 查询数据库数据。                   //  getRowsByIds
   * 使用任意字段查询数据库数据。                   //  getRowsByIndexs
   * 使用任意多个字段混合查询数据库数据<and | or>。  // getRowsByWhere 
@@ -90,5 +91,11 @@
 
 > 实际引用代码参考 demo 内的 app.js
 
+# npm 包发布
 
+https://www.npmjs.com/
+
+$ npm version 0.1.1
+
+$ npm publish
  
