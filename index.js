@@ -30,7 +30,7 @@ function mysql_help(tableName, name, cf) {
  * @param {*} rowData 除 id 外的其他数据
  */
 mysql_help.prototype.addRow = function (rowData) {
-  if(typeof rowData === 'string'){
+  if (typeof rowData === 'string') {
     rowData = JSON.parse(rowData);
   }
   rowData[this.id_name] = rowData[this.id_name] ? rowData[this.id_name] : uuidV1()
@@ -41,7 +41,7 @@ mysql_help.prototype.addRow = function (rowData) {
 /**
  * 获取所有数据
  */
-mysql_help.prototype.getAllRows = function(){
+mysql_help.prototype.getAllRows = function () {
   return this.db_operation.selectAll(this.table_name);
 }
 
@@ -62,7 +62,7 @@ mysql_help.prototype.getRowsByPageCount = function (pageNum, everyPageNum) {
 mysql_help.prototype.getRowsByIds = function (ids, otherField) {
   let field_name = otherField ? otherField : this.id_name
   let idsField = [];
-  if(typeof ids === 'string'){
+  if (typeof ids === 'string') {
     ids = ids.replace(/\'/g, '"')
     ids = JSON.parse(ids);
   }
@@ -97,7 +97,7 @@ mysql_help.prototype.getRowsByWhere = function (field, orAnd) {
  * @param {*} rowData <object> 需要更新的数据
  */
 mysql_help.prototype.updataRow = function (rowData) {
-  if(typeof rowData === 'string'){
+  if (typeof rowData === 'string') {
     rowData = JSON.parse(rowData)
   }
   delete this.dbConstruct[this.id_name]
@@ -116,35 +116,35 @@ mysql_help.prototype.updataRow = function (rowData) {
  */
 mysql_help.prototype.deleteRows = function (ids, name) {
 
-  if(typeof ids === 'string'){
+  if (typeof ids === 'string') {
     ids = ids.replace(/\'/g, '"');
-    ids = ids.indexOf('[') === -1? ids: JSON.parse(ids);
+    ids = ids.indexOf('[') === -1 ? ids : JSON.parse(ids);
   }
 
   let field_name = name ? name : this.id_name;
   let where;
   let idsToStr = [];
-  if(typeof ids === 'string'){
+  if (typeof ids === 'string') {
 
     where = `${field_name} in('${ids}')`;
 
-  }else if(typeof ids === 'object' && ids.length){
+  } else if (typeof ids === 'object' && ids.length) {
 
-    ids.forEach(function(id){
+    ids.forEach(function (id) {
       idsToStr.push(`'${id}'`);
     })
-  
+
     where = `${field_name} in(${idsToStr.join(",")})`;
 
   }
-  
+
   return this.db_operation.delete(this.table_name, where, this.textTip.delete);
 }
 
 
 mysql_help.prototype._getTextTip = function (name, textTip) {
   let text = ""
-  if (textTip){
+  if (textTip) {
     text = textTip[name] || ""
   }
   return {

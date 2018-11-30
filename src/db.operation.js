@@ -136,7 +136,8 @@ db_operation.prototype.selectAll = function (tableName) {
  */
 db_operation.prototype.selectByPageCount = function (tableName, pageNum, everyPageNum) {
   let me = this;
-  let sql = `select * from ${tableName} limit ${pageNum * everyPageNum},${pageNum * everyPageNum + everyPageNum}`;
+  let sql = `select * from ${tableName} limit ${pageNum},${everyPageNum}`;
+
   this._debug(sql)
 
   return new Promise(function (resolve, reject) {
@@ -203,12 +204,13 @@ db_operation.prototype._getConnetion = function (sql, cb) {
  * @private
  */
 db_operation.prototype._debug = function (sql) {
-  if (process.env == 'development') {
+  console.log(process.env.DEBUG)
+  if (process.env.DEBUG === 'dev') {
     console.log('-----------------------')
     console.log(sql)
   }
 }
 
-module.exports = function (dbName, msconfig){
+module.exports = function (dbName, msconfig) {
   return new db_operation(dbName, msconfig);
 };
