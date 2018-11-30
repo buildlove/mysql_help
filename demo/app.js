@@ -5,10 +5,12 @@ const koaBody = require('koa-body');
 
 const config = require('./config/config');
 const dbEnum = require('./config/db.enum');
-const mysqlHelp = require('mysql_help')("jobs", 'user' , {
+require('../index')("", 'jobs' , {
   config: config,
   dbEnum: dbEnum
 })
+
+const mysqlHelp = require('../index')
 
 app.use(koaBody({
   jsonLimit: '1kb'
@@ -25,27 +27,27 @@ router.post('/deleteRows', deleteRows);
 // 前端传递参数格式
 // null
 async function getAllRows(ctx) {
-  ctx.body = await mysqlHelp.getAllRows();
+  ctx.body = await new mysqlHelp("user").getAllRows();
 }
 
 // 前端传递参数格式
 // {ids: ['1','2']}
 async function getRowsByIds(ctx) {
-  ctx.body = await mysqlHelp.getRowsByIds(ctx.request.body.ids);
+  ctx.body = await new mysqlHelp("user").getRowsByIds(ctx.request.body.ids);
 }
 
 // 前端传递参数格式
 // {username: ['admin']}
 async function getRowsByIndexs(ctx) {
   let params = ctx.request.body;
-  ctx.body = await mysqlHelp.getRowsByIndexs(params.username, Object.keys(params)[0]);
+  ctx.body = await new mysqlHelp("user").getRowsByIndexs(params.username, Object.keys(params)[0]);
 }
 
 // 前端传递参数格式
 // {field : {'username': 'admin', 'sex': '男'}, orAnd: 'or'}
 async function getRowsByWhere(ctx) {
   let params = ctx.request.body;
-  ctx.body = await mysqlHelp.getRowsByWhere(params.field, params.orAnd);
+  ctx.body = await new mysqlHelp("user").getRowsByWhere(params.field, params.orAnd);
 }
 
 // 前端传递参数格式
@@ -53,7 +55,7 @@ async function getRowsByWhere(ctx) {
 // id是必传参数, 其他参数可以只传一部分,
 async function updataRow(ctx) {
   let params = ctx.request.body;
-  ctx.body = await mysqlHelp.updataRow(params);
+  ctx.body = await new mysqlHelp("user").updataRow(params);
 }
 
 // 前端传递参数格式
@@ -71,7 +73,7 @@ async function updataRow(ctx) {
 // "id" 可传可不传
 async function addRow(ctx) {
   let params = ctx.request.body;
-  ctx.body = await mysqlHelp.addRow(params);
+  ctx.body = await new mysqlHelp("user").addRow(params);
 }
 
 // 前端传递参数格式
@@ -79,7 +81,7 @@ async function addRow(ctx) {
 // id是必传参数, 其他参数可以只传一部分,
 async function deleteRows(ctx) {
   let ids = ctx.request.body.ids;
-  ctx.body = await mysqlHelp.deleteRows(ids);
+  ctx.body = await new mysqlHelp("user").deleteRows(ids);
 }
 
 app.use(router.routes());

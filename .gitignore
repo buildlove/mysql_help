@@ -1,7 +1,10 @@
 .DS_Store
 node_modules/
+demo/node_modules/
 npm-debug.log
 yarn-error.log
 test/unit/coverage
 log/
-config.js
+config/config.js
+package-lock.json
+demo/package-lock.json

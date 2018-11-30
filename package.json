@@ -1,21 +1,42 @@
 {
-  "name": "mysql_help",
-  "version": "1.0.2",
-  "description": "mysql通用接口",
-  "main": "app.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon"
+  "_from": "mysql_help",
+  "_id": "mysql_help@1.0.2",
+  "_inBundle": false,
+  "_integrity": "sha512-Mvwa3GEmYfroGBUGof2Y7sVDdXsKUsuoLSBAm6nJjRteu9MvaDxU12LgfO8hv47KqrNmxs/E9Rv3EsSZc+97mg==",
+  "_location": "/mysql_help",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "mysql_help",
+    "name": "mysql_help",
+    "escapedName": "mysql_help",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
   },
+  "_requiredBy": [
+    "#DEV:/",
+    "#USER"
+  ],
+  "_resolved": "https://registry.npmjs.org/mysql_help/-/mysql_help-1.0.2.tgz",
+  "_shasum": "83027489a6b1b23e2f10b878d244b25320da3da8",
+  "_spec": "mysql_help",
+  "_where": "C:\\Users\\a\\Desktop\\workspace\\小项目\\gallery\\galleryServer",
   "author": "",
-  "license": "ISC",
+  "bundleDependencies": false,
+  "deprecated": false,
+  "description": "mysql通用接口",
   "devDependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-preset-env": "^1.7.0",
-    "babel-preset-es2015": "^6.24.1",
-    "babel-preset-stage-0": "^6.24.1",
     "mysql": "^2.16.0",
-    "mysql_help": "^1.0.0",
     "uuid": "^3.3.2"
-  }
+  },
+  "license": "ISC",
+  "main": "app.js",
+  "name": "mysql_help",
+  "scripts": {
+    "dev": "nodemon",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "version": "1.0.2"
 }

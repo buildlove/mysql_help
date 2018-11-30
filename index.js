@@ -1,22 +1,28 @@
 let uuidV1 = require('uuid/v1');
 let db_operation = require('./src/db.operation');
 let common = require('./src/common');
+let config = null;
+let dbName = "";
 
 /**
  * 通用接口入口函数
  * @param {*} dbName     数据库名称
  * @param {*} tableName  表名称
  */
-function mysql_help(dbName, tableName, config) {
+function mysql_help(tableName, name, cf) {
+  dbName = name ? name : dbName;
+  config = cf ? cf : config;
 
-  this.db_name = dbName;                            // 数据库名称
-  this.table_name = tableName;                      // 表名称
-  this.msconfig = config.config.mysql;
-  this.dbConstruct = config.dbEnum[tableName]       // 表头字段
-  this.id_name = Object.keys(this.dbConstruct)[0]   // 表头 id 字段名
-  this.db_operation = db_operation(dbName, this.msconfig)          // 查询数据库接口
-  this.textTip = this._getTextTip(tableName, config.dbEnum.textTip)        // 提示文字
-  
+  if (tableName) {
+    this.db_name = dbName;                            // 数据库名称
+    this.table_name = tableName;                      // 表名称
+    this.msconfig = config.config.mysql;
+    this.dbConstruct = config.dbEnum[tableName]       // 表头字段
+    this.id_name = Object.keys(this.dbConstruct)[0]   // 表头 id 字段名
+    this.db_operation = db_operation(dbName, this.msconfig)          // 查询数据库接口
+    this.textTip = this._getTextTip(tableName, config.dbEnum.textTip)        // 提示文字
+    this.config = config
+  }
 }
 
 /**
@@ -28,7 +34,7 @@ mysql_help.prototype.addRow = function (rowData) {
     rowData = JSON.parse(rowData);
   }
   rowData[this.id_name] = rowData[this.id_name] ? rowData[this.id_name] : uuidV1()
-  let arg = common.sortArg(this.table_name, rowData, this.config.dbEnum);
+  let arg = common.sortArg(this.table_name, rowData, this.dbConstruct);
   return this.db_operation.insert(this.table_name, arg, this.textTip.create);
 }
 
@@ -105,13 +111,12 @@ mysql_help.prototype.deleteRows = function (ids, name) {
 
   if(typeof ids === 'string'){
     ids = ids.replace(/\'/g, '"');
-    ids = JSON.parse(ids);
+    ids = ids.indexOf('[') === -1? ids: JSON.parse(ids);
   }
 
   let field_name = name ? name : this.id_name;
   let where;
   let idsToStr = [];
-  
   if(typeof ids === 'string'){
 
     where = `${field_name} in('${ids}')`;
@@ -143,6 +148,4 @@ mysql_help.prototype._getTextTip = function (name, textTip) {
   }
 }
 
-module.exports = function (dbName, tableName, config){
-  return new mysql_help(dbName, tableName, config)
-};
+module.exports = mysql_help

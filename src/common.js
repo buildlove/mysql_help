@@ -2,7 +2,7 @@
 function assignSqlArg(keys, obj) {
   let result = []
  
-  keys.forEach((key, index) => {
+  keys.forEach((key) => {
     let value = obj[key];
     if (value) {
       result.push(`${key}='${value}'`)
@@ -14,9 +14,8 @@ function assignSqlArg(keys, obj) {
 // 调整参数顺序
 function sortArg(name, data, dbEnum) {
   let result = [];
-  let ArgEnum = Object.keys(dbEnum[name]);
-  // let ArgData = Object.keys(data);
-  // if (ArgEnum.length === ArgData.length) {
+  let ArgEnum = Object.keys(dbEnum);
+
   ArgEnum.forEach(function (key) {
     let value = data[key]
     if (!value){
@@ -25,14 +24,17 @@ function sortArg(name, data, dbEnum) {
     result.push(value);
   })
   return result
-  // } else {
-  //   return "common.js:sortArg_枚举参数和传入参数字段不相等"
-  // }
+
 }
 
 // 转换对象为where条件语句
 function whereField(field, orAnd) {
-  let condition = orAnd.match('or') ? ' or ' : ' and '
+  let condition = ""
+  if(orAnd){
+    condition = orAnd.match('or') ? ' or ' : ' and '
+  }else{
+    condition = ' or '
+  }
   if(typeof field === 'string'){
     field = field.replace(/\'/g, '"')
     field = JSON.parse(field);
