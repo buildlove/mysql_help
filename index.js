@@ -47,9 +47,11 @@ mysql_help.prototype.getAllRows = function () {
 
 /**
  * 获取数据通过页码和每条数目
+ * @param {number} pageNum 第N页
+ * @param {number} everyPageNum 取N条数据
  */
 mysql_help.prototype.getRowsByPageCount = function (pageNum, everyPageNum) {
-  return this.db_operation.selectByPageCount(this.table_name, pageNum, everyPageNum);
+  return this.db_operation.selectByPageCount(this.table_name, pageNum * everyPageNum, everyPageNum);
 }
 
 /**
