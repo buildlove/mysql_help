@@ -7,31 +7,42 @@ let pools = {};               // 所有数据库连接进程池
  * @param {*} dbName 数据库名称
  */
 function db_operation(dbName, msconfig) {
-  // msconfig.allDbName.forEach(function (db) {
-  pools[dbName] = mysql.createPool({
-    host: msconfig.host,
-    user: msconfig.user,
-    password: msconfig.password,
-    database: dbName
-  })
-  // });
+  
+  if (!pools[dbName]){ // 只有在没有进程连接时创建
+    pools[dbName] = mysql.createPool({
+      host: msconfig.host,
+      user: msconfig.user,
+      password: msconfig.password,
+      database: dbName
+    })
+  }
+
   this.pool = pools[dbName];
 }
 
 /**
  * 新增数据
  * @param {*} tableName         表名称
- * @param {*} values <array>    需要添加的数据
+ * @param {*} data <array>    需要添加的数据
  * @param {*} text              提示文字 
  */
-db_operation.prototype.insert = function (tableName, values, text) {
+db_operation.prototype.insert = function (tableName, data, text) {
+  let args = data && Array.isArray(data) ? data:[data]
   let me = this;
-  let newVal = []
-  values.forEach(function (value) {
-    newVal.push('"' + value + '"')
-  })
-  let v = newVal.join(",");
-  let sql = `INSERT INTO ${tableName} VALUES (${v})`;
+  let v = ""
+  for(let i=0;i<args.length;i++){
+    let newVal = []
+    let values = args[i]
+    values.forEach(function (value) {
+      newVal.push('"' + value + '"')
+    })
+    let b = ','
+    if(args.length === i+1){
+      b = ';'
+    }
+    v += ' (' + newVal.join(",") + ')' + b;
+  }
+  let sql = `INSERT INTO ${tableName} VALUES${v}`;
 
   this._debug(sql)
 
@@ -41,7 +52,7 @@ db_operation.prototype.insert = function (tableName, values, text) {
         reject(err);
       } else {
         if (result && result.insertId > -1) {
-          resolve({ status: 1, msg: text + "成功", result: values });
+          resolve({ status: 1, msg: text + "成功", result: args });
         } else {
           resolve({ status: 0, msg: text + '失败' });
         }
@@ -190,11 +201,11 @@ db_operation.prototype._getConnetion = function (sql, cb) {
       throw err
     }
     connection.query(sql, function (error, results, fields) {
+      cb(error, results, fields);
+      connection.release();
       if (error) {
         logger.error(error);
       }
-      cb(error, results, fields);
-      connection.release();
     })
   })
 }
@@ -204,13 +215,10 @@ db_operation.prototype._getConnetion = function (sql, cb) {
  * @private
  */
 db_operation.prototype._debug = function (sql) {
-  console.log(process.env.DEBUG)
   if (process.env.DEBUG === 'dev') {
     console.log('-----------------------')
     console.log(sql)
   }
 }
 
-module.exports = function (dbName, msconfig) {
-  return new db_operation(dbName, msconfig);
-};
+module.exports = db_operation

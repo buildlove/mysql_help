@@ -34,7 +34,6 @@ async function getAllRows(ctx) {
 // 前端传递参数格式
 // {pageNum:0, everyPageNum:2}
 async function getRowsByPageCount(ctx) {
-  console.log(ctx.request.body)
   ctx.body = await new mysqlHelp("user").getRowsByPageCount(ctx.request.body.pageNum, ctx.request.body.everyPageNum);
 }
 

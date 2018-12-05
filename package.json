@@ -1,8 +1,8 @@
 {
   "_from": "mysql_help",
-  "_id": "mysql_help@1.0.2",
+  "_id": "mysql_help@1.0.6",
   "_inBundle": false,
-  "_integrity": "sha512-Mvwa3GEmYfroGBUGof2Y7sVDdXsKUsuoLSBAm6nJjRteu9MvaDxU12LgfO8hv47KqrNmxs/E9Rv3EsSZc+97mg==",
+  "_integrity": "sha512-kju4NGfzR5+UAhu1XtbGvD3Q8FF0UUSWIFy0yKBMtxjWW/3Qu1DWoJqDG4FXNx9+/iTXhgtttLLdH5twqx+tRw==",
   "_location": "/mysql_help",
   "_phantomChildren": {},
   "_requested": {
@@ -16,11 +16,11 @@
     "fetchSpec": "latest"
   },
   "_requiredBy": [
-    "#DEV:/",
-    "#USER"
+    "#USER",
+    "/"
   ],
-  "_resolved": "https://registry.npmjs.org/mysql_help/-/mysql_help-1.0.2.tgz",
-  "_shasum": "83027489a6b1b23e2f10b878d244b25320da3da8",
+  "_resolved": "https://registry.npmjs.org/mysql_help/-/mysql_help-1.0.6.tgz",
+  "_shasum": "f6cff171094c8458fd2954d9f607fffe1f102ec6",
   "_spec": "mysql_help",
   "_where": "C:\\Users\\a\\Desktop\\workspace\\小项目\\gallery\\galleryServer",
   "author": "",

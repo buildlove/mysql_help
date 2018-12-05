@@ -1,5 +1,5 @@
 let uuidV1 = require('uuid/v1');
-let db_operation = require('./src/db.operation');
+let operation = require('./src/db.operation');
 let common = require('./src/common');
 let config = null;
 let dbName = "";
@@ -19,23 +19,40 @@ function mysql_help(tableName, name, cf) {
     this.msconfig = config.config.mysql;
     this.dbConstruct = config.dbEnum[tableName]       // 表头字段
     this.id_name = Object.keys(this.dbConstruct)[0]   // 表头 id 字段名
-    this.db_operation = db_operation(dbName, this.msconfig)          // 查询数据库接口
+    this.db_operation = new operation(dbName, this.msconfig)          // 查询数据库接口
     this.textTip = this._getTextTip(tableName, config.dbEnum.textTip)        // 提示文字
     this.config = config
   }
 }
 
 /**
- * 新增数据到数据库
+ * 新增单条数据到数据库
  * @param {*} rowData 除 id 外的其他数据
  */
-mysql_help.prototype.addRow = function (rowData) {
-  if (typeof rowData === 'string') {
-    rowData = JSON.parse(rowData);
+mysql_help.prototype.addRow = saveDataInDB
+
+/**
+ * 新增多条数据到数据库
+ * @param {*} rowData 除 id 外的其他数据
+ */
+mysql_help.prototype.addRows = saveDataInDB;
+function saveDataInDB(rowDatas) {
+  let data = rowDatas && Array.isArray(rowDatas) ? rowDatas : [rowDatas]
+  let args = [];
+
+  for (let i = 0; i < data.length;i++){
+    let rowData = data[i]
+    if (typeof rowData === 'string') {
+      rowData = JSON.parse(rowData);
+    }
+
+    rowData[this.id_name] = rowData[this.id_name] ? rowData[this.id_name] : uuidV1()
+    let arg = common.sortArg(this.table_name, rowData, this.dbConstruct);
+    args.push(arg)
   }
-  rowData[this.id_name] = rowData[this.id_name] ? rowData[this.id_name] : uuidV1()
-  let arg = common.sortArg(this.table_name, rowData, this.dbConstruct);
-  return this.db_operation.insert(this.table_name, arg, this.textTip.create);
+
+  let tableTitle = `${this.table_name}(` + Object.keys(this.dbConstruct).join(",") + ')'
+  return this.db_operation.insert(tableTitle, args, this.textTip.create);
 }
 
 /**
