@@ -12,7 +12,7 @@
   * npm install mysql_help --save-dev
   * let mysqlHelp = require("mysqlHelp")
   * mysqlHelp('数据库名称', '要操作的表名称', '配置文件')
-  * 以下数据库仅仅只适用于 mysql 数据库, 插件提供的所有接口返回的都是 primise 对象。
+  * 以下数据库仅仅只适用于 mysql 数据库, 插件提供的所有接口返回的都是 promise 对象。
 
 ### 只是连接数据库测试插件接口是否可用
 
