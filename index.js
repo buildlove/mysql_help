@@ -11,7 +11,7 @@ let dbName = "";
  */
 function mysql_help(tableName, name, cf) {
   dbName = name ? name : dbName;
-  config = cf ? cf : config;
+  config = cf ? cf : common.deepClone(config);
 
   if (tableName) {
     this.db_name = dbName;                            // 数据库名称
