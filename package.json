@@ -1,6 +1,6 @@
 {
   "_from": "mysql_help",
-  "_id": "mysql_help@1.0.6",
+  "_id": "mysql_help@1.0.9",
   "_inBundle": false,
   "_integrity": "sha512-kju4NGfzR5+UAhu1XtbGvD3Q8FF0UUSWIFy0yKBMtxjWW/3Qu1DWoJqDG4FXNx9+/iTXhgtttLLdH5twqx+tRw==",
   "_location": "/mysql_help",
@@ -19,7 +19,7 @@
     "#USER",
     "/"
   ],
-  "_resolved": "https://registry.npmjs.org/mysql_help/-/mysql_help-1.0.6.tgz",
+  "_resolved": "https://registry.npmjs.org/mysql_help/-/mysql_help-1.0.9.tgz",
   "_shasum": "f6cff171094c8458fd2954d9f607fffe1f102ec6",
   "_spec": "mysql_help",
   "_where": "C:\\Users\\a\\Desktop\\workspace\\小项目\\gallery\\galleryServer",
@@ -38,5 +38,5 @@
     "dev": "nodemon",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "version": "1.0.8"
+  "version": "1.0.9"
 }
