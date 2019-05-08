@@ -7,7 +7,6 @@ let pools = {};               // 所有数据库连接进程池
  * @param {*} dbName 数据库名称
  */
 function db_operation(dbName, msconfig) {
-  
   if (!pools[dbName]){ // 只有在没有进程连接时创建
     pools[dbName] = mysql.createPool({
       host: msconfig.host,
@@ -107,7 +106,11 @@ db_operation.prototype.update = function (tableName, args, text) {
         reject(err);
       } else {
         if (result && result.affectedRows > 0) {
-          resolve({ status: 1, msg: text + '成功' });
+          let r = []
+          for(let i=0;i< result.affectedRows;i++){
+            r.push("1")
+          }
+          resolve({ status: 1, result: r});
         } else {
           resolve({ status: 0, msg: text + '失败' });
         }
@@ -145,9 +148,15 @@ db_operation.prototype.selectAll = function (tableName) {
  * @param {number} pageNum 当前第N页
  * @param {number} everyPageNum 每页N页
  */
-db_operation.prototype.selectByPageCount = function (tableName, pageNum, everyPageNum) {
-  let me = this;
-  let sql = `select * from ${tableName} limit ${pageNum},${everyPageNum}`;
+db_operation.prototype.selectByPageCount = function (tableName, pageNum, everyPageNum, where) {
+  let me = this;//where userid = 0
+  let sql = ""
+  if(where) {
+    sql = `select * from ${tableName} `+ where +` order by create_time limit ${pageNum},${everyPageNum}`;
+  }else{
+    sql = `select * from ${tableName} order by create_time limit ${pageNum},${everyPageNum}`;
+  }
+  
 
   this._debug(sql)
 
@@ -190,9 +199,32 @@ db_operation.prototype.select = function (tableName, where, text) {
   })
 }
 
+db_operation.prototype.client = function (sql) {
+  let me = this;
+
+  this._debug(sql)
+
+  return new Promise(function (resolve, reject) {
+    me._getConnetion(sql, function (err, result, fields) {
+      if (err) {
+        reject(err);
+      } else {
+        if (result && result.affectedRows > 0) {
+          let r = []
+          for(let i=0;i< result.affectedRows;i++){
+            r.push("1")
+          }
+          resolve({ status: 1, result: r});
+        } else {
+          resolve({ status: 0, msg: '连接失败' });
+        }
+      }
+    })
+  })
+}
+
 /**
- * 连接数据库进程池
- * @private
+ * 直接放入 sql 连接数据库进程池
  */
 db_operation.prototype._getConnetion = function (sql, cb) {
   this.pool.getConnection(function (err, connection) {
@@ -215,10 +247,10 @@ db_operation.prototype._getConnetion = function (sql, cb) {
  * @private
  */
 db_operation.prototype._debug = function (sql) {
-  if (process.env.DEBUG === 'dev') {
+  // if (process.env.DEBUG === 'dev') {
     console.log('-----------------------')
     console.log(sql)
-  }
+  // }
 }
 
 module.exports = db_operation
