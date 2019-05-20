@@ -21,7 +21,7 @@ router.post('/getRowsByPageCount', getRowsByPageCount);
 router.post('/getRowsByIds', getRowsByIds);
 router.post('/getRowsByIndexs', getRowsByIndexs);
 router.post('/getRowsByWhere', getRowsByWhere);
-router.post('/updataRow', updataRow);
+router.post('/updateRow', updateRow);
 router.post('/addRow', addRow);
 router.post('/deleteRows', deleteRows);
 
@@ -60,9 +60,9 @@ async function getRowsByWhere(ctx) {
 // 前端传递参数格式
 // {userid:'1', 'username': 'admin', 'sex': '男'} 
 // id是必传参数, 其他参数可以只传一部分,
-async function updataRow(ctx) {
+async function updateRow(ctx) {
   let params = ctx.request.body;
-  ctx.body = await new mysqlHelp("user").updataRow(params);
+  ctx.body = await new mysqlHelp("user").updateRow(params);
 }
 
 // 前端传递参数格式

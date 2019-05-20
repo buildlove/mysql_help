@@ -11,18 +11,42 @@ let dbName = "";
  */
 function mysql_help(tableName, name, cf) {
   dbName = name ? name : dbName;
-  config = cf ? cf : common.deepClone(config);
-
+  config = cf ? cf : config;
   if (tableName) {
     this.db_name = dbName;                            // 数据库名称
     this.table_name = tableName;                      // 表名称
     this.msconfig = config.config.mysql;
-    this.dbConstruct = config.dbEnum[tableName]       // 表头字段
+    this.dbConstruct = common.deepClone(config.dbEnum[tableName])       // 表头字段
     this.id_name = Object.keys(this.dbConstruct)[0]   // 表头 id 字段名
-    this.db_operation = new operation(dbName, this.msconfig)          // 查询数据库接口
+    this.db_operation = new operation(dbName, config.config.mysql)          // 查询数据库接口
     this.textTip = this._getTextTip(tableName, config.dbEnum.textTip)        // 提示文字
     this.config = config
   }
+}
+
+/**
+ * 配置 mysql_help 数据库和数据表结构
+ */
+mysql_help.config = function(name, con){
+  dbName = name
+  config = con
+  // 如果数据库不存在创建数据库
+  let db_operation = new operation('', config.config.mysql)
+  db_operation.createDatabase(dbName).then(function(result){
+
+    db_operation = new operation(dbName, config.config.mysql)
+    // 如果表不存在创建表
+    let dbEnum = Object.keys(config.dbEnum)
+    let dbPromise = []
+    dbEnum.forEach(function(tableName){
+      let tab = db_operation.createTable(dbName, tableName, config.dbEnum[tableName])
+      dbPromise.push(tab)
+    })
+    Promise.all(dbPromise).then(function(result){
+      console.log('Init Databases')
+    })
+
+  })
 }
 
 /**
@@ -66,9 +90,11 @@ mysql_help.prototype.getAllRows = function () {
  * 获取数据通过页码和每条数目
  * @param {number} pageNum 第N页
  * @param {number} everyPageNum 取N条数据
+ * @param {number} userid 用户id(可不填)
  */
-mysql_help.prototype.getRowsByPageCount = function (pageNum, everyPageNum) {
-  return this.db_operation.selectByPageCount(this.table_name, pageNum * everyPageNum, everyPageNum);
+mysql_help.prototype.getRowsByPageCount = function (pageNum, everyPageNum, wherefield) {
+  let where = wherefield.userid ? `where ${wherefield.field}='${wherefield.userid}'`:""
+  return this.db_operation.selectByPageCount(this.table_name, pageNum * everyPageNum, everyPageNum, where);
 }
 
 /**
@@ -90,6 +116,13 @@ mysql_help.prototype.getRowsByIds = function (ids, otherField) {
   });
   let where = `${field_name} in (${idsField.join(',')})`
   return this.db_operation.select(this.table_name, where, this.textTip.find)
+}
+
+/**
+ * 同查询ids一样, 查询单个id
+ */
+mysql_help.prototype.getRowsById = function (id, otherField) {
+  return this.getRowsByIds([id], otherField)
 }
 
 /**
@@ -115,7 +148,7 @@ mysql_help.prototype.getRowsByWhere = function (field, orAnd) {
  * 根据任意字段更新相关数据
  * @param {*} rowData <object> 需要更新的数据
  */
-mysql_help.prototype.updataRow = function (rowData) {
+mysql_help.prototype.updateRow = function (rowData) {
   if (typeof rowData === 'string') {
     rowData = JSON.parse(rowData)
   }
@@ -126,6 +159,35 @@ mysql_help.prototype.updataRow = function (rowData) {
     where: `${this.id_name}='${rowData[this.id_name]}'`
   }
   return this.db_operation.update(this.table_name, arg, this.textTip.update)
+}
+
+/**
+ * 根据任意字段更新相关数据
+ * @param {*} rowDatas <object> 需要更新的数据集 必须要存在id字段
+ */
+// UPDATE photo SET
+//     remark = CASE photo_id
+//         WHEN '4866b3f0-1fb6-11e9-9ff8-3d7112b84c8b' THEN '123'
+//         WHEN '4866b3f1-1fb6-11e9-9ff8-3d7112b84c8b' THEN '234'
+//     END
+// WHERE photo_id IN ('4866b3f0-1fb6-11e9-9ff8-3d7112b84c8b', '4866b3f1-1fb6-11e9-9ff8-3d7112b84c8b')
+mysql_help.prototype.updateRows = function (rowDatas) {
+  let self = this
+  let SQL = `UPDATE photo SET \n`
+  let KEYS = Object.keys(self.dbConstruct)
+  KEYS.forEach(function (key, index) {
+    if(key !== self.id_name){
+      SQL += `${key} = CASE ${self.id_name} \n`
+      rowDatas.forEach(function (rowData) {
+        SQL += `WHEN '${rowData[self.id_name]}' THEN '${rowData[key]}' \n`
+      })
+      SQL += KEYS.length === index + 1 ? 'END \n' : 'END, \n'
+    }
+  })
+  let ids = rowDatas.map(function(item){return item[self.id_name]})
+  let inIDs = "'" + ids.join("', '") + "'"
+  SQL += `WHERE ${self.id_name} IN (${inIDs})`
+  return this.db_operation.client(SQL)
 }
 
 /**

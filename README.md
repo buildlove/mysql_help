@@ -31,7 +31,7 @@
 
 ### 更新数据库数据  
 
-  * 使用 id 更新数据库数据。                      // updataRow
+  * 使用 id 更新数据库数据。                      // updateRow
 
 ### 新增数据库数据  
 
@@ -100,3 +100,8 @@ $ npm version 0.1.1
 
 $ npm publish
  
+
+## bug
+
+1.引入方式不优美
+2.getrowById接口

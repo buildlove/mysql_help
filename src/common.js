@@ -47,6 +47,7 @@ function whereField(field, orAnd) {
   return result.join(condition)
 }
 
+// 深拷贝
 function deepClone(data){
   var type = getType(data);
   var obj;
@@ -85,9 +86,6 @@ function getType(obj){
      '[object Null]'     : 'null', 
      '[object Object]'   : 'object'
  };
- if(obj instanceof Element) {
-      return 'element';
- }
  return map[toString.call(obj)];
 }
 
