@@ -7,7 +7,7 @@ let pools = {};               // 所有数据库连接进程池
  * @param {*} dbName 数据库名称
  */
 function db_operation(dbName, msconfig) {
-  if (dbName && !pools[dbName]){ // 只有在没有进程连接时创建
+  if (!pools[dbName]){ // 只有在没有进程连接时创建
     pools[dbName] = mysql.createPool({
       host: msconfig.host,
       user: msconfig.user,
@@ -212,7 +212,6 @@ db_operation.prototype.client = function (sql) {
 
   return new Promise(function (resolve, reject) {
     me._getConnetion(sql, function (err, result, fields) {
-      console.log(reuslt, fields)
       if (err) {
         reject(err);
       } else {
@@ -224,90 +223,6 @@ db_operation.prototype.client = function (sql) {
           resolve({ status: 1, result: r});
         } else {
           resolve({ status: 0, msg: '连接失败' });
-        }
-      }
-    })
-  })
-}
-
-/**
- * 创建数据库
- */
-db_operation.prototype.createDatabase = function (dbName) {
-  let me = this
-  let sql = `CREATE DATABASE IF NOT EXISTS ${dbName} default charset utf8 COLLATE utf8_general_ci`;
-
-  me._debug(sql)
-
-  return new Promise(function (resolve, reject) {
-    me._getConnetion(sql, function (err, result, fields) {
-      if (err) {
-        reject(err);
-      } else {
-        if (result && result.length) {
-          resolve({ status: 1, result: result });
-        } else {
-          resolve({ status: 0, msg: '失败' });
-        }
-      }
-    })
-  })
-}
-
-/**
- * 创建数据表
- */
-
-db_operation.prototype.createTable = function (dbName, tableName, construct) {
-  let me = this
-  let fields = Object.keys(construct)
-  let sql = `Create Table If Not Exists ${tableName} (`
-  fields.forEach(function(field, index){
-    if(index === 0){
-      sql += `${field} varchar(180),`
-    }else if(field.indexOf('text') !== -1){
-      sql += `${field} text,\n`
-    }else{
-      sql += `${field} varchar(255),`
-    }
-    if(index === fields.length - 1){
-      sql += `primary key(${fields[0]})`
-    }
-  })
-  sql += `) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='${dbName}'`
-
-  this._debug(sql)
-
-  return new Promise(function (resolve, reject) {
-    me._getConnetion(sql, function (err, result, fields) {
-      if (err) {
-        reject(err);
-      } else {
-        resolve({ status: 1, result: result });
-      }
-    })
-  })
-}
-
-/**
- * 验证数据库是否存在
- */
-db_operation.prototype.isExistDb = function (dbName) {
-  let me = this;
-
-  let sql = `SHOW DATABASES LIKE "${dbName}"`;
-
-  this._debug(sql)
-
-  return new Promise(function (resolve, reject) {
-    me._getConnetion(sql, function (err, result, fields) {
-      if (err) {
-        reject(err);
-      } else {
-        if (result && result.length) {
-          resolve({ status: 1, result: result });
-        } else {
-          resolve({ status: 0, msg: '失败' });
         }
       }
     })
@@ -338,10 +253,10 @@ db_operation.prototype._getConnetion = function (sql, cb) {
  * @private
  */
 db_operation.prototype._debug = function (sql) {
-  if (process && process.env && process.env.npm_lifecycle_event && process.env.npm_lifecycle_event === 'start') {
+  // if (process.env.DEBUG === 'dev') {
     console.log('-----------------------')
     console.log(sql)
-  }
+  // }
 }
 
 module.exports = db_operation
