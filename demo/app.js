@@ -1,20 +1,19 @@
-const router = require('koa-router')();
 const Koa = require('koa');
-const app = module.exports = new Koa();
-const koaBody = require('koa-body');
+const router = require('koa-router')();
+const app = new Koa();
+const bodyParser = require('koa-bodyparser')
 
 const config = require('./config/config');
 const dbEnum = require('./config/db.enum');
-require('../index')("", 'jobs' , {
+
+const mysqlHelp = require('../index')
+mysqlHelp.config('jobs', {
   config: config,
   dbEnum: dbEnum
 })
 
-const mysqlHelp = require('../index')
-
-app.use(koaBody({
-  jsonLimit: '1kb'
-}));
+app.use(router.routes());
+app.use(bodyParser());
 
 router.post('/getAllRows', getAllRows);
 router.post('/getRowsByPageCount', getRowsByPageCount);
@@ -24,10 +23,12 @@ router.post('/getRowsByWhere', getRowsByWhere);
 router.post('/updateRow', updateRow);
 router.post('/addRow', addRow);
 router.post('/deleteRows', deleteRows);
+router.post('/addRows', addRows);
 
 // 前端传递参数格式
 // null
 async function getAllRows(ctx) {
+  console.log("====")
   ctx.body = await new mysqlHelp("user").getAllRows();
 }
 
@@ -91,6 +92,14 @@ async function deleteRows(ctx) {
   ctx.body = await new mysqlHelp("user").deleteRows(ids);
 }
 
-app.use(router.routes());
+async function addRows(ctx) {
+  await new mysqlHelp("user").addRows({
+    username:'test',
+    password:'test',
+  });
+  ctx.body = "ddddddd"
+}
+
 
 if (!module.parent) app.listen(3001);
+console.log('listen to http://localhost:3001')
