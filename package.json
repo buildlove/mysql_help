@@ -1,42 +1,26 @@
 {
-  "_from": "mysql_help",
-  "_id": "mysql_help@1.0.9",
-  "_inBundle": false,
-  "_integrity": "sha512-kju4NGfzR5+UAhu1XtbGvD3Q8FF0UUSWIFy0yKBMtxjWW/3Qu1DWoJqDG4FXNx9+/iTXhgtttLLdH5twqx+tRw==",
-  "_location": "/mysql_help",
-  "_phantomChildren": {},
-  "_requested": {
-    "type": "tag",
-    "registry": true,
-    "raw": "mysql_help",
-    "name": "mysql_help",
-    "escapedName": "mysql_help",
-    "rawSpec": "",
-    "saveSpec": null,
-    "fetchSpec": "latest"
-  },
-  "_requiredBy": [
-    "#USER",
-    "/"
-  ],
-  "_resolved": "https://registry.npmjs.org/mysql_help/-/mysql_help-1.0.9.tgz",
-  "_shasum": "f6cff171094c8458fd2954d9f607fffe1f102ec6",
-  "_spec": "mysql_help",
-  "_where": "C:\\Users\\a\\Desktop\\workspace\\小项目\\gallery\\galleryServer",
-  "author": "",
-  "bundleDependencies": false,
-  "deprecated": false,
-  "description": "mysql通用接口",
-  "devDependencies": {
-    "mysql": "^2.16.0",
-    "uuid": "^3.3.2"
-  },
-  "license": "ISC",
-  "main": "app.js",
   "name": "mysql_help",
+  "version": "2.0.0",
+  "description": "node 到数据库最后一公里",
+  "main": "app.js",
   "scripts": {
-    "dev": "nodemon",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon"
   },
-  "version": "1.1.1"
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/plugin-transform-async-to-generator": "^7.4.4",
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "mysql": "^2.16.0"
+  },
+  "dependencies": {
+    "koa-body": "^4.0.4",
+    "koa-router": "^7.4.0",
+    "koa": "^2.5.3",
+    "koa-bodyparser": "^4.2.1"
+  }
 }

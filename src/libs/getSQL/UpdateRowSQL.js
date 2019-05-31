@@ -1,4 +1,4 @@
-let {deepClone} = require('../common.js')
+let {deepClone} = require('../../common.js')
 
 const UpdateRowSQL = function(table_name, id_name, dbConstruct, rowData){
   let construct = deepClone(dbConstruct)

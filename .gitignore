@@ -4,7 +4,9 @@ demo/node_modules/
 npm-debug.log
 yarn-error.log
 test/unit/coverage
-log/
 config/config.js
 package-lock.json
 demo/package-lock.json
+src/config/column.json
+src/config/config.json
+src/log/*

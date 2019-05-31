@@ -1,6 +1,7 @@
 /**
- * 获取整张表的数据
+ * 创建表
  * @param {*} table_name 表名
+ * @param {*} db_construct 表字段
  */
 const CreateDBTable = function(db_name, table_name, db_construct){
   let fields = Object.keys(db_construct)

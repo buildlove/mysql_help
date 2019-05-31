@@ -1,5 +1,5 @@
 let mysql = require('mysql');
-let logger = require('./logger')();
+let logger = require('./logger');
 let pools = {};               // 所有数据库连接进程池
 
 /**
@@ -154,6 +154,17 @@ db_operation.prototype.client = function (sql) {
   })
 }
 
+// 简单 sql 连接 promise 返回、释放
+db_operation.prototype.query = function(sql) {
+  let me = this;
+  return new Promise(function(resolve, reject){
+    me._getConnetion(sql, function (err, results) {
+      if(err){console.log(err)}
+      resolve(results)
+    })
+  })
+}
+
 /**
  * 直接放入 sql 连接数据库进程池
  */
@@ -161,15 +172,16 @@ db_operation.prototype._getConnetion = function (sql, cb) {
   this.pool.getConnection(function (err, connection) {
     if (err) {
       logger.error(err);
-      throw err
+      console.log("连接数据库失败")
+    } else {
+      connection.query(sql, function (error, results, fields) {
+        cb(error, results, fields);
+        connection.release();
+        if (error) {
+          logger.error(error);
+        }
+      })
     }
-    connection.query(sql, function (error, results, fields) {
-      cb(error, results, fields);
-      connection.release();
-      if (error) {
-        logger.error(error);
-      }
-    })
   })
 }
 

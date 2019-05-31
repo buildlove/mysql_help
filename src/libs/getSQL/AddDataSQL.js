@@ -1,17 +1,33 @@
 let { uuid } = require('../../common')
+let errorCode = require('../ErrorCode/code.json')
 
 /**
  * 保存数据 - SQL转换
  * @param {string} id_name            表id字段的名称
  * @param {string} table_namedata     表
  */
-const AddDataSQL = function(id_name, table_name, rowDatas, dbConstruct){
+const AddDataSQL = function(table_name, id_name, dbConstruct, rowDatas){
   let args = format(id_name, rowDatas, dbConstruct)
+  if(!validParams(args)){return errorCode['100001']}
   let tableTitle = `${table_name}(` + Object.keys(dbConstruct).join(",") + ')'
   let v = values(args)
 
   let sql = `INSERT INTO ${tableTitle} VALUES${v}`;
   return sql
+}
+
+// 判断传递参数是否与数据库没有任何字段相同
+function validParams(args){
+  let valid = true
+  args = args.map(function(item){
+    if(item){
+      return item
+    }
+  })
+  if(args.length === 1){
+    valid = false
+  }
+  return valid
 }
 
 // 规范数据结构
@@ -26,6 +42,7 @@ function format(id_name, rowDatas, dbConstruct){
     let arg = sortArg(row, dbConstruct);
     args.push(arg)
   }
+
   return args
 }
 

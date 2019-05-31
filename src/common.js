@@ -1,3 +1,75 @@
+let path = require('path')
+let fs = require('fs')
+
+/**
+ * 写入文件
+ * @param {string} rootPath 目录
+ * @param {stirng} filePath 文件名(默认所有资源都在data目录中)
+ * @param {stirng} text 写入内容文本
+ * @param {string} flag 写入方式
+ */
+function fsWriteFile(rootPath="./", filename, text) {
+  let filePath = path.resolve(__dirname, rootPath, filename)
+  return new Promise(function (resolve, reject) {
+    fs.writeFile(filePath, text, function (err) {
+      if (err) {
+        reject(err);
+      }
+      resolve(true)
+    })
+  })
+}
+
+/**
+ * 读取文件内容
+ * @param {string} filePath 文件路径
+ */
+function fsReadFile(filePath) {
+  return new Promise(function (resolve, reject) {
+    fs.readFile(filePath, { encoding: "utf-8" }, function (err, fr) {
+      if (err) {
+        reject(err);
+      }
+      resolve(fr)
+    })
+  })
+}
+
+
+/**
+ * 读取多个文件
+ * @param {Array<string>} filePaths 多个文件路径
+ */
+function fsReadFiles(filePaths){
+  let pro = []
+  for (let i = 0; i < filePaths.length; i++) {
+    const filePath = filePaths[i];
+    let f = path.resolve(__dirname, filePath)
+    pro.push(fsReadFile(f))
+  }
+  return Promise.all(pro)
+}
+
+/**
+ * 验证对象参数是否有一个为空, 返回为空的数据
+ * @param {object} params 
+ */
+function dbValidEmpty(params) {
+  let is = false
+  let arr = []
+  const keys = Object.keys(params)
+  if(!keys || keys.length < 4 ){
+    is = true
+  }
+  for (let i = 0; i < keys.length; i++) {
+    if (!params[keys[i]]) {
+      arr.push(keys[i])
+      is = true
+    }
+  }
+  return [is, arr]
+}
+
 // 深拷贝
 function deepClone(data){
   var type = getType(data);
@@ -53,5 +125,9 @@ function uuid(num){
 
 module.exports = {
   deepClone: deepClone,
-  uuid: uuid
+  uuid: uuid,
+  fsWriteFile: fsWriteFile,
+  fsReadFile: fsReadFile,
+  fsReadFiles: fsReadFiles,
+  dbValidEmpty: dbValidEmpty
 }
