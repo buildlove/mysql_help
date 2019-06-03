@@ -1,6 +1,6 @@
 {
   "name": "mysql_help",
-  "version": "2.0.1",
+  "version": "2.0.3",
   "description": "node 到数据库最后一公里",
   "main": "app.js",
   "scripts": {
