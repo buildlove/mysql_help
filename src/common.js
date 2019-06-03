@@ -8,10 +8,10 @@ let fs = require('fs')
  * @param {stirng} text 写入内容文本
  * @param {string} flag 写入方式
  */
-function fsWriteFile(rootPath="./", filename, text) {
+function fsWriteFile(rootPath="./", filename, text, flag='w') {
   let filePath = path.resolve(__dirname, rootPath, filename)
   return new Promise(function (resolve, reject) {
-    fs.writeFile(filePath, text, function (err) {
+    fs.writeFile(filePath, text, {flag: flag}, function (err) {
       if (err) {
         reject(err);
       }

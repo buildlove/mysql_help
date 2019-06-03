@@ -1,5 +1,7 @@
 // 配置 mysql_help 数据库和数据表结构
 let operation = require('../db.operation');
+let path = require('path');
+let fs = require('fs');
 let {
   CreateDatabaseSQL,
   CreateDBTable,
@@ -21,7 +23,16 @@ const sqlConfig = async function(dbName, config){
 
   let [empty, p] = dbValidEmpty(config.mysql)
   if(!empty){
-    await fsWriteFile('./config', 'config.json', JSON.stringify(config.mysql))
+    let fileDir = path.join(__dirname,'../', 'config')
+    console.log(fileDir)
+    if (!fs.existsSync(fileDir)) {
+      console.log(fileDir)
+      fs.mkdirSync(fileDir);
+      await fsWriteFile(fileDir, 'config.json', JSON.stringify(config.mysql), 'a')
+    }else{
+      await fsWriteFile(fileDir, 'config.json', JSON.stringify(config.mysql))
+    }
+    
   }else{
     console.log(`参数错误: 数据库配置:${p.length? p+ '为空': '不存在或缺少字段'}`)
     return

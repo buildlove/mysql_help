@@ -54,19 +54,19 @@ mysql_help.prototype.addRow = saveDataInDB;
 mysql_help.prototype.addRows = saveDataInDB;
 
 // 获取所有
-mysql_help.prototype.getAllRowsSQL = function () {
+mysql_help.prototype.getAllRows = function () {
   let sql = this.getAllRows()
   return this.db_operation.select(sql, this.textTip.find);
 }
 
 // 分页查询
-mysql_help.prototype.getRowsByPageSQL = function (pageNum, everyPageNum, wherefield) {
+mysql_help.prototype.getRowsByPage = function (pageNum, everyPageNum, wherefield) {
   let sql = getSQL.GetRowsByPageSQL(this.table_name, pageNum, everyPageNum, wherefield)
   return this.db_operation.select(sql, this.textTip.find);
 }
 
 // 根据索引获取数据
-mysql_help.prototype.getRowsByIdsSQL = function (ids, otherField) {
+mysql_help.prototype.getRowsByIds = function (ids, otherField) {
   let sql = getSQL.GetRowsByIdsSQL(this.table_name, this.id_name, ids, otherField)
   return this.db_operation.select(sql, this.textTip.find)
 }
@@ -74,7 +74,7 @@ mysql_help.prototype.getRowsByIdsSQL = function (ids, otherField) {
 /**
  * 同查询ids一样, 查询单个id
  */
-mysql_help.prototype.getRowsByIdSQL = function (id, otherField) {
+mysql_help.prototype.getRowsById = function (id, otherField) {
   let sql = getSQL.GetRowsByIdsSQL(this.table_name, this.id_name, id, otherField)
   return this.db_operation.select(sql, this.textTip.find)
 }
@@ -84,7 +84,7 @@ mysql_help.prototype.getRowsByIdSQL = function (id, otherField) {
  * @param {*} indexs 
  * @param {*} name 
  */
-mysql_help.prototype.getRowsByIndexsSQL = function (indexs, otherField) {
+mysql_help.prototype.getRowsByIndexs = function (indexs, otherField) {
   let sql = getSQL.GetRowsByIdsSQL(this.table_name, this.id_name, indexs, otherField)
   return this.db_operation.select(sql, this.textTip.find)
 }
@@ -94,7 +94,7 @@ mysql_help.prototype.getRowsByIndexsSQL = function (indexs, otherField) {
  * @param {*} field <object> 需要查询的相关字段
  * @param {*} orAnd <string> 默认为 "or" 只要满足一个及可以匹配, "and" 为需要满足所有传递的参数 
  */
-mysql_help.prototype.getRowsByWhereSQL = function (field, orAnd) {
+mysql_help.prototype.getRowsByWhere = function (field, orAnd) {
   let sql = getSQL.GetRowsByWhereSQL(this.table_name, field, orAnd);
   return this.db_operation.select(sql, this.textTip.find)
 }
@@ -103,7 +103,7 @@ mysql_help.prototype.getRowsByWhereSQL = function (field, orAnd) {
  * 根据任意字段更新相关数据
  * @param {*} rowData <object> 需要更新的数据
  */
-mysql_help.prototype.updateRowSQL = function (rowData) {
+mysql_help.prototype.updateRow = function (rowData) {
   let sql = getSQL.UpdateRowSQL(this.table_name,this.id_name,this.dbConstruct, rowData)
   return this.db_operation.update(sql, this.textTip.update)
 }
@@ -112,7 +112,7 @@ mysql_help.prototype.updateRowSQL = function (rowData) {
  * 根据任意字段更新相关数据
  * @param {*} rowDatas <object> 需要更新的数据集 必须要存在id字段
  */
-mysql_help.prototype.updateRowsSQL = function (rowDatas) {
+mysql_help.prototype.updateRows = function (rowDatas) {
   let sql = getSQL.UpdateRowsSQL(this.table_name,this.id_name,this.dbConstruct,rowDatas)
   return this.db_operation.client(sql)
 }
@@ -122,12 +122,14 @@ mysql_help.prototype.updateRowsSQL = function (rowDatas) {
  * @param {*} ids 需要删除的 id 字段
  * @param {*} name 
  */
-mysql_help.prototype.deleteRowsSQL = function (ids, name) {
+mysql_help.prototype.deleteRows = function (ids, name) {
   let sql = getSQL.UpdateRowsSQL(this.table_name,this.id_name,ids, name)
   return this.db_operation.delete(sql, this.textTip.delete);
 }
 
+
 // 获取SQL语句内部函数 ===
+
 
 // 添加数据
 mysql_help.prototype.addDataSQL = function(rowDatas){
