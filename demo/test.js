@@ -16,15 +16,15 @@ pool.getConnection(function (err, connection) {
   const CreateDatabaseSQL = require('./getSQL/CreateDatabaseSQL');
   const CreateDBTable = require('./getSQL/CreateDBTable');
   const DeleteRowsSQL = require('./getSQL/DeleteRowsSQL');
-  const GetAllRowsSQL = require('./getSQL/GetAllRowsSQL.js')
-  const GetAllTableNameSQL = require('./getSQL/GetAllTableNameSQL.js')
-  const GetAllColumnName = require('./getSQL/GetAllColumnName.js')
-  const GetRowsByPageSQL = require('./getSQL/GetRowsByPageSQL.js')
-  const GetRowsByIdsSQL = require('./getSQL/GetRowsByIdsSQL.js')
-  const GetRowsByWhereSQL = require('./getSQL/GetRowsByWhereSQL.js')
-  const IsExistDBSQL = require('./getSQL/IsExistDBSQL.js')
-  const UpdateRowSQL = require('./getSQL/UpdateRowSQL.js')
-  const UpdateRowsSQL = require('./getSQL/UpdateRowsSQL.js')
+  const GetAllRowsSQL = require('./getSQL/GetAllRowsSQL.js.js.js')
+  const GetAllTableNameSQL = require('./getSQL/GetAllTableNameSQL.js.js.js')
+  const GetAllColumnName = require('./getSQL/GetAllColumnName.js.js.js')
+  const GetRowsByPageSQL = require('./getSQL/GetRowsByPageSQL.js.js.js')
+  const GetRowsByIdsSQL = require('./getSQL/GetRowsByIdsSQL.js.js.js')
+  const GetRowsByWhereSQL = require('./getSQL/GetRowsByWhereSQL.js.js.js')
+  const IsExistDBSQL = require('./getSQL/IsExistDBSQL.js.js.js')
+  const UpdateRowSQL = require('./getSQL/UpdateRowSQL.js.js.js')
+  const UpdateRowsSQL = require('./getSQL/UpdateRowsSQL.js.js.js')
   let tablesSQL = GetAllTableNameSQL('jobs')
 
   function query(sql){

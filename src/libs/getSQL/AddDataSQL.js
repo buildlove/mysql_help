@@ -8,26 +8,17 @@ let errorCode = require('../ErrorCode/code.json')
  */
 const AddDataSQL = function(table_name, id_name, dbConstruct, rowDatas){
   let args = format(id_name, rowDatas, dbConstruct)
-  if(!validParams(args)){return errorCode['100001']}
-  let tableTitle = `${table_name}(` + Object.keys(dbConstruct).join(",") + ')'
-  let v = values(args)
 
-  let sql = `INSERT INTO ${tableTitle} VALUES${v}`;
-  return sql
-}
-
-// 判断传递参数是否与数据库没有任何字段相同
-function validParams(args){
-  let valid = true
-  args = args.map(function(item){
-    if(item){
-      return item
-    }
-  })
-  if(args.length === 1){
-    valid = false
+  if(args && args.length){
+    let tableTitle = `${table_name}(` + Object.keys(dbConstruct).join(",") + ')'
+    let v = values(args)
+  
+    let sql = `INSERT INTO ${tableTitle} VALUES${v}`;
+    return sql
+  }else{
+    return errorCode['100001']
   }
-  return valid
+
 }
 
 // 规范数据结构
@@ -46,13 +37,13 @@ function format(id_name, rowDatas, dbConstruct){
   return args
 }
 
-  // 根据数据生成 sql 语句
+// 根据数据生成 sql 语句
 function values(args){
   let v = ""
   for(let i=0;i<args.length;i++){
     let newVal = []
-    let values = args[i]
-    values.forEach(function (value) {
+    let vs = args[i]
+    Object.values(vs).forEach(function (value) {
       newVal.push('"' + value + '"')
     })
     let b = ','
@@ -66,17 +57,12 @@ function values(args){
 
 // 根据表结构调整参数顺序
 function sortArg(data, dbEnum) {
-  let result = [];
   let ArgEnum = Object.keys(dbEnum);
-
+  let newData = {}
   ArgEnum.forEach(function (key) {
-    let value = data[key]
-    if (!value){
-      value = ""
-    }
-    result.push(value);
+    newData[key] = data[key]
   })
-  return result
+  return newData
 }
 
 module.exports = AddDataSQL

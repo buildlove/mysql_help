@@ -5,17 +5,22 @@ let fs = require('fs');
 let {
   CreateDatabaseSQL,
   CreateDBTable,
+  GetPrimaryKeySQL,
   GetAllTableNameSQL,
   GetAllColumnName,
   IsExistDBSQL
 } = require('./getSQL/index.js');
 let {fsWriteFile, dbValidEmpty} = require('../common.js')
+let fileDir = path.join(__dirname,'../', 'config')
+let mysql_config = null
 
 const sqlConfig = async function(dbName, config){
   if(!dbName){
     console.log('参数错误: 数据库名称未传入')
     return
   }
+  await fsWriteFile(fileDir, 'dbName.json', JSON.stringify({dbName: dbName}))
+
   if(!config || !config.mysql){
     console.log('参数错误: 没有配置数据库参数')
     return
@@ -23,10 +28,8 @@ const sqlConfig = async function(dbName, config){
 
   let [empty, p] = dbValidEmpty(config.mysql)
   if(!empty){
-    let fileDir = path.join(__dirname,'../', 'config')
     console.log(fileDir)
     if (!fs.existsSync(fileDir)) {
-      console.log(fileDir)
       fs.mkdirSync(fileDir);
       await fsWriteFile(fileDir, 'config.json', JSON.stringify(config.mysql), 'a')
     }else{
@@ -48,7 +51,7 @@ const sqlConfig = async function(dbName, config){
       }
     })
   }
-  let dbConfig = {
+  mysql_config = {
     dbName: dbName,
     config: {
       mysql: config.mysql,
@@ -56,7 +59,7 @@ const sqlConfig = async function(dbName, config){
     }
   }
   initDataBase(dbName, dbEnum, config)
-  return dbConfig
+  return mysql_config
 }
 
 // 如果数据库不存在 创建数据库和按字段创建表
@@ -101,13 +104,19 @@ async function get_db_struction(dbName, config){
   let keys = Object.keys(db_struction)
   let values = Object.values(db_struction)
   return new Promise(function(resolve){
-    Promise.all(values).then(function(proR){
+    Promise.all(values).then(async function(proR){
       for (let i = 0; i < proR.length; i++) {
         const allR = proR[i];
+        // 查找primary key
+        let kSQL = GetPrimaryKeySQL(keys[i])
+        let k = await db_operation.query(kSQL)
         db_struction[keys[i]] = {}
         for (let j = 0; j < allR.length; j++) {
           const R = allR[j];
           db_struction[keys[i]][R.COLUMN_NAME] = ""
+        }
+        if(k && k[0] && k[0].column_name){
+          db_struction[keys[i]][k[0].column_name] = "primary"
         }
       }
       // 结构化表结构写入 column.json表中

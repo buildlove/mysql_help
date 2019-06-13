@@ -136,7 +136,7 @@ db_operation.prototype.client = function (sql) {
 
   return new Promise(function (resolve, reject) {
     me._getConnetion(sql, function (err, result, fields) {
-      console.log(reuslt, fields)
+      // console.log(reuslt, fields)
       if (err) {
         reject(err);
       } else {

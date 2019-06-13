@@ -2,6 +2,7 @@ const AddDataSQL = require('./AddDataSQL');
 const CreateDatabaseSQL = require('./CreateDatabaseSQL');
 const CreateDBTable = require('./CreateDBTable');
 const DeleteRowsSQL = require('./DeleteRowsSQL');
+const GetPrimaryKeySQL = require('./GetPrimaryKeySQL.js')
 const GetAllColumnName = require('./GetAllColumnName.js')
 const GetAllRowsSQL = require('./GetAllRowsSQL.js')
 const GetAllTableNameSQL = require('./GetAllTableNameSQL.js')
@@ -17,6 +18,7 @@ module.exports = {
   CreateDatabaseSQL,
   CreateDBTable,
   DeleteRowsSQL,
+  GetPrimaryKeySQL,
   GetAllColumnName,
   GetAllRowsSQL,
   GetAllTableNameSQL,

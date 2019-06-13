@@ -1,5 +1,49 @@
 let path = require('path')
 let fs = require('fs')
+/**
+ * 同步读取多个文件
+ * @param {Array} filePaths 文件路径
+ */
+function fsReadFilesAsync(filePaths){
+  let datas = []
+  for (let i = 0; i < filePaths.length; i++) {
+    const filePath = filePaths[i];
+    let data = fs.readFileSync(filePath)
+    datas.push(data.toString())
+  }
+  return datas
+}
+function fsReadFileAsync(filePath){
+  return fsReadFilesAsync([filePath])[0]
+}
+/**
+ * 字符串转二维数组
+ */
+function stringToArray2(str){
+  let arr = str.split("\n")
+  let arr2 = []
+  for (let i = 0; i < arr.length; i++) {
+    const a = arr[i];
+    if(a){
+      arr2.push(a.split(','))
+    }
+  }
+  return arr2
+}
+
+/**
+ * 获取主键字段名称
+ * @param {*} dbConstruct 
+ */
+function getPrimaryKey(dbConstruct){
+  let key = '';
+  for(let k in dbConstruct){
+    if(dbConstruct[k].indexOf('primary') !== -1){
+      key = k
+    }
+  }
+  return key
+}
 
 /**
  * 写入文件
@@ -21,7 +65,7 @@ function fsWriteFile(rootPath="./", filename, text, flag='w') {
 }
 
 /**
- * 读取文件内容
+ * 异步读取文件内容
  * @param {string} filePath 文件路径
  */
 function fsReadFile(filePath) {
@@ -37,7 +81,7 @@ function fsReadFile(filePath) {
 
 
 /**
- * 读取多个文件
+ * 异步读取多个文件
  * @param {Array<string>} filePaths 多个文件路径
  */
 function fsReadFiles(filePaths){
@@ -49,6 +93,8 @@ function fsReadFiles(filePaths){
   }
   return Promise.all(pro)
 }
+
+
 
 /**
  * 验证对象参数是否有一个为空, 返回为空的数据
@@ -124,10 +170,14 @@ function uuid(num){
 }
 
 module.exports = {
-  deepClone: deepClone,
-  uuid: uuid,
-  fsWriteFile: fsWriteFile,
-  fsReadFile: fsReadFile,
-  fsReadFiles: fsReadFiles,
-  dbValidEmpty: dbValidEmpty
+  deepClone,
+  uuid,
+  fsWriteFile,
+  fsReadFile,
+  fsReadFiles,
+  dbValidEmpty,
+  getPrimaryKey,
+  stringToArray2,
+  fsReadFileAsync,
+  fsReadFilesAsync
 }
