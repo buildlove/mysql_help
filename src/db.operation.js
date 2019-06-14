@@ -6,14 +6,10 @@ let pools = {};               // 所有数据库连接进程池
  * sql 查询数据库
  * @param {*} dbName 数据库名称
  */
-function db_operation(dbName, msconfig) {
+function db_operation(msconfig) {
+  let dbName = msconfig.database
   if (dbName && !pools[dbName]){ // 只有在没有进程连接时创建
-    pools[dbName] = mysql.createPool({
-      host: msconfig.host,
-      user: msconfig.user,
-      password: msconfig.password,
-      database: dbName
-    })
+    pools[dbName] = mysql.createPool(msconfig)
   }else{
     pools["default"] = mysql.createPool({
       host: msconfig.host,

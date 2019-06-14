@@ -17,7 +17,7 @@ const fileDir = path.join(__dirname, '../', 'config');
 let mysql_config = null;
 
 const sqlConfig = async function(config) {
-  let dbName = config.mysql.db
+  let dbName = config.mysql.database
   if (!dbName) {
     console.log('参数错误: 数据库名称未传入');
     return;
@@ -68,7 +68,7 @@ const sqlConfig = async function(config) {
 
 // 如果数据库不存在 创建数据库和按字段创建表
 async function initDataBase(dbName, dbEnum, config) {
-  let db_operation = new operation('', config.mysql);
+  let db_operation = new operation(config.mysql);
   const isExistSql = IsExistDBSQL(dbName);
   const exist = await db_operation.select(isExistSql);
   if (!exist.status) {
@@ -76,7 +76,7 @@ async function initDataBase(dbName, dbEnum, config) {
     await db_operation.select(createDBSQL); // 创建数据库
 
     // 实例化连接数据库
-    db_operation = new operation(dbName, config.mysql);
+    db_operation = new operation(config.mysql);
     const dbEnumKeys = Object.keys(dbEnum);
     const dbPromise = [];
     if (dbEnumKeys && dbEnumKeys.length) {
@@ -98,7 +98,7 @@ async function initDataBase(dbName, dbEnum, config) {
 // 根据数据库名称 获取数据库内的表名称和表里面的字段名称
 async function get_db_struction(dbName, config) {
   const tablesSQL = GetAllTableNameSQL(dbName);
-  const db_operation = new operation(dbName, config);
+  const db_operation = new operation(config);
   const results = await db_operation.query(tablesSQL);
   const db_struction = {};
   results.forEach(function(RowDataPacket) {

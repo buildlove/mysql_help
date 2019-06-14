@@ -27,7 +27,7 @@ function mysql_help(tableName, cf) {
   }
   self.dbConstruct = common.deepClone(dbEnum[tableName]); // 表头字段
   self.id_name = common.getPrimaryKey(self.dbConstruct); // 表头 id 字段名
-  self.db_operation = new operation(dbName, mysql); // 查询数据库接口
+  self.db_operation = new operation(mysql); // 查询数据库接口
   self.textTip = self._getTextTip(tableName, dbEnum.textTip); // 提示文字
 }
 
