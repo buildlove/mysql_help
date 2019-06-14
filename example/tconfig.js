@@ -6,6 +6,6 @@ mysql_help.config({
     "port": "3306",
     "user": "root",
     "password": "Lixiaoqi2468",
-    "db":"jobs"
+    "database":"jobs"
   }
 })
