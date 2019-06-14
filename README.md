@@ -1,5 +1,7 @@
 Version: 2.1024.10240
 
+[文档](https://www.showdoc.cc/mysqlhelp)
+
 ## 引入插件
 
 ### 1.新建 config.json 文件

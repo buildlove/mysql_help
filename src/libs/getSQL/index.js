@@ -12,6 +12,7 @@ const GetRowsByWhereSQL = require('./GetRowsByWhereSQL.js')
 const IsExistDBSQL = require('./IsExistDBSQL.js')
 const UpdateRowSQL = require('./UpdateRowSQL.js')
 const UpdateRowsSQL = require('./UpdateRowsSQL.js')
+const GetCountSQL = require('./GetCountSQL.js')
 
 module.exports = {
   AddDataSQL,
@@ -27,5 +28,6 @@ module.exports = {
   GetRowsByWhereSQL,
   IsExistDBSQL,
   UpdateRowSQL,
-  UpdateRowsSQL
+  UpdateRowsSQL,
+  GetCountSQL
 }
