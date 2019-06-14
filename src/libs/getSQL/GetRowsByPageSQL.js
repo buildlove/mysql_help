@@ -4,13 +4,17 @@
  * @param {number} everyPageNum 取N条数据
  * @param {number} userid 用户id(可不填)
  */
-const GetRowsByPageSQL = function(table_name, pageNum, everyPageNum, wherefield){
+const GetRowsByPageSQL = function(table_name, pageNum, everyPageNum, orderfield, wherefield){
   let where = wherefield && wherefield.userid ? `where ${wherefield.field}='${wherefield.userid}'`:""
   let sql = ""
+  let order = ""
+  if(orderfield){//排序
+    order = 'order by ${orderfield} '
+  }
   if(where) {
-    sql = `select * from ${table_name} `+ where +` order by create_time limit ${pageNum},${everyPageNum}`;
+    sql = `select * from ${table_name} `+ where +` ${order}limit ${pageNum*everyPageNum},${everyPageNum}`;
   }else{
-    sql = `select * from ${table_name} order by create_time limit ${pageNum},${everyPageNum}`;
+    sql = `select * from ${table_name} ${order}limit ${pageNum*everyPageNum},${everyPageNum}`;
   }
   return sql
 }
