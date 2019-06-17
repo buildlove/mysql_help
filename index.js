@@ -36,7 +36,6 @@ mysql_help.getCacheConfig = function() {
   const mysql = fs.readFileSync(path.resolve(__dirname, 'src/config/config.json'));
   // const dbName = fs.readFileSync(path.resolve(__dirname, 'src/config/dbName.json'));
   let mConfig = JSON.parse(mysql.toString())
-  console.log(mConfig)
   return {
     dbName: mConfig.db,
     dbEnum: JSON.parse(dbEnum.toString()),
@@ -71,7 +70,6 @@ mysql_help.prototype.addRows = saveDataInDB;
 // 获取所有
 mysql_help.prototype.getAllRows = function() {
   const sql = SQL.GetAllRowsSQL(this.table_name);
-  console.log(sql);
   return this.db_operation.select(sql, this.textTip.find);
 };
 

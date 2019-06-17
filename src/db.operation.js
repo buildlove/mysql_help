@@ -1,13 +1,14 @@
 let mysql = require('mysql');
 let logger = require('./logger');
 let pools = {};               // 所有数据库连接进程池
-
+let env = 'dev'
 /**
  * sql 查询数据库
  * @param {*} dbName 数据库名称
  */
 function db_operation(msconfig) {
   let dbName = msconfig.database
+  env = msconfig.env
   if (dbName && !pools[dbName]){ // 只有在没有进程连接时创建
     pools[dbName] = mysql.createPool(msconfig)
   }else{
@@ -186,7 +187,7 @@ db_operation.prototype._getConnetion = function (sql, cb) {
  * @private
  */
 db_operation.prototype._debug = function (sql) {
-  if (process && process.env && process.env.npm_lifecycle_event && process.env.npm_lifecycle_event === 'start') {
+  if (env === 'dev') {
     console.log('-----------------------')
     console.log(sql)
   }
