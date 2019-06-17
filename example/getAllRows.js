@@ -10,7 +10,8 @@ mysql_help.config({
     "port": "3306",
     "user": "root",
     "password": "Lixiaoqi2468",
-    "database": 'jobs'
+    "database": 'jobs',
+    "env": "dev" //"prod"
   }
 })
 

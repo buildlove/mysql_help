@@ -6,7 +6,9 @@ mysql_help.config('map', {
     host: '127.0.0.1',
     port: '3306',
     user: 'root',
-    password: 'Lixiaoqi2468'
+    password: 'Lixiaoqi2468',
+    database:"map",
+    env: "dev" //"prod"
   }
 }, async function(cf){
   console.log(cf)
