@@ -7,6 +7,10 @@ mysql_help.config({
     "user": "root",
     "password": "Lixiaoqi2468",
     "database":"jobs",
-    "env": "prod" //"prod"
+    "env": "dev" //"prod"
   }
+}, function(cf){
+  let userTable = new mysql_help('user')
+  userTable.getAllRows().then(function(data){
+  })
 })

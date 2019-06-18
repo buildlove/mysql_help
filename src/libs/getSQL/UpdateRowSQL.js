@@ -1,11 +1,11 @@
 let {deepClone} = require('../../common.js')
 
-const UpdateRowSQL = function(table_name, id_name, dbConstruct, rowData){
-  let construct = deepClone(dbConstruct)
-  delete construct[id_name]
+const UpdateRowSQL = function(self, rowData){
+  let construct = deepClone(self.dbConstruct)
+  delete construct[self.id_name]
   let keys = assignSqlArg(Object.keys(construct), rowData);
-  let where = `${id_name}='${rowData[id_name]}'`
-  let sql = `update ${table_name} set ${keys.join(",")} where ${where}`
+  let where = `${self.id_name}='${rowData[self.id_name]}'`
+  let sql = `update ${self.table_name} set ${keys.join(",")} where ${where}`
   return sql
 }
 

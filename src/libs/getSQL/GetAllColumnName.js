@@ -3,8 +3,8 @@
  * @param {*} db_name 数据库名称
  * @param {*} table_name 表名称
  */
-const GetAllColumnName = function(db_name,table_name){
-  let sql = `select column_name from information_schema.columns where table_schema='${db_name}' and table_name='${table_name}'`;
+const GetAllColumnName = function(self, table_name){
+  let sql = `select column_name from information_schema.columns where table_schema='${self.database}' and table_name='${table_name}'`;
   return sql
 }
 

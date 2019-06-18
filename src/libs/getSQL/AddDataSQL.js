@@ -6,11 +6,11 @@ let errorCode = require('../ErrorCode/code.json')
  * @param {string} id_name            表id字段的名称
  * @param {string} table_namedata     表
  */
-const AddDataSQL = function(table_name, id_name, dbConstruct, rowDatas){
-  let args = format(id_name, rowDatas, dbConstruct)
+const AddDataSQL = function(self, rowDatas){
+  let args = format(self.id_name, rowDatas, self.dbConstruct)
 
   if(args && args.length){
-    let tableTitle = `${table_name}(` + Object.keys(dbConstruct).join(",") + ')'
+    let tableTitle = `${self.table_name}(` + Object.keys(self.dbConstruct).join(",") + ')'
     let v = values(args)
   
     let sql = `INSERT INTO ${tableTitle} VALUES${v}`;

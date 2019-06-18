@@ -4,13 +4,13 @@ let pools = {};               // 所有数据库连接进程池
 let env = 'dev'
 /**
  * sql 查询数据库
- * @param {*} dbName 数据库名称
+ * @param {*} database 数据库名称
  */
 function db_operation(msconfig) {
-  let dbName = msconfig.database
+  let database = msconfig.database
   env = msconfig.env
-  if (dbName && !pools[dbName]){ // 只有在没有进程连接时创建
-    pools[dbName] = mysql.createPool(msconfig)
+  if (database && !pools[database]){ // 只有在没有进程连接时创建
+    pools[database] = mysql.createPool(msconfig)
   }else{
     pools["default"] = mysql.createPool({
       host: msconfig.host,
@@ -19,7 +19,7 @@ function db_operation(msconfig) {
     })
   }
 
-  this.pool = dbName?pools[dbName]:pools["default"];
+  this.pool = database?pools[database]:pools["default"];
 }
 
 /**
@@ -38,9 +38,9 @@ db_operation.prototype.insert = function (sql, text) {
         reject(err);
       } else {
         if (result && result.insertId > -1) {
-          resolve({ status: 1, msg: text + "成功" });
+          resolve({ status: 1, msg: text + "success" });
         } else {
-          resolve({ status: 0, msg: text + '失败' });
+          resolve({ status: 0, msg: text + 'failed' });
         }
       }
     })
@@ -64,9 +64,9 @@ db_operation.prototype.delete = function (sql, text) {
         reject(err);
       } else {
         if (result && result.affectedRows > 0) {
-          resolve({ status: 1, msg: text + '成功' });
+          resolve({ status: 1, msg: text + 'success' });
         } else {
-          resolve({ status: 0, msg: text + '失败' });
+          resolve({ status: 0, msg: text + 'failed' });
         }
       }
     })
@@ -96,7 +96,7 @@ db_operation.prototype.update = function (sql, text) {
           }
           resolve({ status: 1, result: r});
         } else {
-          resolve({ status: 0, msg: text + '失败' });
+          resolve({ status: 0, msg: text + 'failed' });
         }
       }
     })
@@ -119,7 +119,7 @@ db_operation.prototype.select = function (sql, text) {
         if (result && result.length) {
           resolve({ status: 1, result: result });
         } else {
-          resolve({ status: 0, msg: text + '失败' });
+          resolve({ status: 0, msg: text + 'select failed' });
         }
       }
     })
@@ -133,7 +133,6 @@ db_operation.prototype.client = function (sql) {
 
   return new Promise(function (resolve, reject) {
     me._getConnetion(sql, function (err, result, fields) {
-      // console.log(reuslt, fields)
       if (err) {
         reject(err);
       } else {
@@ -144,7 +143,7 @@ db_operation.prototype.client = function (sql) {
           }
           resolve({ status: 1, result: r});
         } else {
-          resolve({ status: 0, msg: '连接失败' });
+          resolve({ status: 0, msg: 'client connetion failed' });
         }
       }
     })
@@ -156,7 +155,7 @@ db_operation.prototype.query = function(sql) {
   let me = this;
   return new Promise(function(resolve, reject){
     me._getConnetion(sql, function (err, results) {
-      if(err){console.log(err)}
+      if(err){logger.error(err)}
       resolve(results)
     })
   })
@@ -169,7 +168,7 @@ db_operation.prototype._getConnetion = function (sql, cb) {
   this.pool.getConnection(function (err, connection) {
     if (err) {
       logger.error(err);
-      console.log("连接数据库失败")
+      logger.debug("db connetion failed")
     } else {
       connection.query(sql, function (error, results, fields) {
         cb(error, results, fields);
@@ -188,8 +187,7 @@ db_operation.prototype._getConnetion = function (sql, cb) {
  */
 db_operation.prototype._debug = function (sql) {
   if (env === 'dev') {
-    console.log('-----------------------')
-    console.log(sql)
+    logger.debug(sql)
   }
 }
 

@@ -3,7 +3,7 @@
  * @param {*} table_name 表名
  * @param {*} db_construct 表字段
  */
-const CreateDBTable = function(db_name, table_name, db_construct){
+const CreateDBTable = function(self, table_name, db_construct){
   let fields = Object.keys(db_construct)
   let sql = `Create Table If Not Exists ${table_name} (`
   fields.forEach(function(field, index){
@@ -18,7 +18,7 @@ const CreateDBTable = function(db_name, table_name, db_construct){
       sql += `primary key(${fields[0]})`
     }
   })
-  sql += `) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='${db_name}'`
+  sql += `) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='${self.database}'`
   return sql
 }
 

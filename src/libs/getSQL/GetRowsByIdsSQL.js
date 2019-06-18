@@ -5,8 +5,8 @@
  *       如：需要查询 "username" 字段叫"李四"的人
  *       getRowsByIds(["李四"], "username")
  */
-const GetRowsByIdsSQL = function(table_name, id_name, ids, otherField){
-  let field_name = otherField ? otherField : id_name
+const GetRowsByIdsSQL = function(self, ids, otherField){
+  let field_name = otherField ? otherField : self.id_name
   let idsField = [];
   if (typeof ids === 'string') {
     ids = [ids]
@@ -15,7 +15,7 @@ const GetRowsByIdsSQL = function(table_name, id_name, ids, otherField){
     idsField.push(`'${id}'`)
   });
   let where = `${field_name} in (${idsField.join(',')})`
-  let sql = `select * from ${table_name} where ${where}`;
+  let sql = `select * from ${self.table_name} where ${where}`;
   return sql
 }
 

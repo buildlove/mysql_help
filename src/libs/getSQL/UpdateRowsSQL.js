@@ -6,23 +6,23 @@
  * @param {*} dbConstruct 表的数据结构
  * @param {*} rowDatas 传入数据
  */
-const UpdateRowsSQL = function(table_name, id_name, dbConstruct, rowDatas){
-  let SQL = `UPDATE ${table_name} SET \n`
-  let KEYS = Object.keys(dbConstruct)
+const UpdateRowsSQL = function(self, rowDatas){
+  let SQL = `UPDATE ${self.table_name} SET \n`
+  let KEYS = Object.keys(self.dbConstruct)
   let reduce = false
   KEYS.forEach(function (key, index) {
     let fieldSQL = ""
-    if(key !== id_name){
-      fieldSQL += `${key} = CASE ${id_name} \n`
+    if(key !== self.id_name){
+      fieldSQL += `${key} = CASE ${self.id_name} \n`
       let one = false
       rowDatas.forEach(function (rowData) {
         if(rowData[key]){
-          fieldSQL += `WHEN '${rowData[id_name]}' THEN '${rowData[key]}' \n`
+          fieldSQL += `WHEN '${rowData[self.id_name]}' THEN '${rowData[key]}' \n`
           one = true
           reduce= true
         }
       })
-      fieldSQL += KEYS.length === index + 1 ? 'END ' : 'END, '
+      fieldSQL += KEYS.length === index + 1 ? 'END  ' : 'END, '
       if(one){
         SQL += fieldSQL
       }
@@ -33,9 +33,9 @@ const UpdateRowsSQL = function(table_name, id_name, dbConstruct, rowDatas){
     SQL = SQL.substring(0, SQL.length - 2);
     SQL += ' '
   }
-  let ids = rowDatas.map(function(item){return item[id_name]})
+  let ids = rowDatas.map(function(item){return item[self.id_name]})
   let inIDs = "'" + ids.join("', '") + "'"
-  SQL += `WHERE ${id_name} IN (${inIDs})`
+  SQL += `WHERE ${self.id_name} IN (${inIDs})`
   return SQL
 }
 

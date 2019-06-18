@@ -1,9 +1,9 @@
 /**
  * 判断数据库是否存在
- * @param {*} db_name 数据库名称
+ * @param {*} database 数据库名称
  */
-const IsExistDBSQL = function(db_name){
-  let sql = `SHOW DATABASES LIKE "${db_name}"`;
+const IsExistDBSQL = function(self){
+  let sql = `SHOW DATABASES LIKE "${self.database}"`;
   return sql
 }
 
