@@ -1,19 +1,33 @@
 const SQL = require('./getSQL/index.js');
 const common = require('../common.js');
 const logger = require('../logger.js')
+const fs = require('fs');
+const path = require('path');
 
 class getSQL {
-  constructor(tableName, config){
-    const dbConstruct = config.dbConstruct;
+  constructor(tableName, cf){
+    this.config = cf ? cf : this._getCacheConfig();
+    const dbConstruct = this.config.dbConstruct;
     if (!dbConstruct[tableName]) {
       logger.error('数据库中不存在' + tableName + '表');
       return;
     }
-    this.db_name = config.mysql.database;
+    this.db_name = this.config.mysql.database;
     this.table_name =tableName;
     this.dbConstruct = common.deepClone(dbConstruct[tableName]);
     this.id_name = common.getPrimaryKey(dbConstruct[tableName]);
   }
+  _getCacheConfig() {
+    const dbConstruct = fs.readFileSync(path.resolve(__dirname, '../config/column.json'));
+    const mysql = fs.readFileSync(path.resolve(__dirname, '../config/config.json'));
+    let mConfig = JSON.parse(mysql.toString())
+    return {
+      database: mConfig.db,
+      dbConstruct: JSON.parse(dbConstruct.toString()),
+      mysql: mConfig,
+    };
+  };
+
   // 添加数据
   addDataSQL (rowDatas) {
     return SQL.AddDataSQL(this, rowDatas);

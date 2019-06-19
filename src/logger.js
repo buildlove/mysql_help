@@ -6,10 +6,16 @@ if (!fs.existsSync(fileDir)) {
   fs.mkdirSync(fileDir);
 }
 
-const config = fs.readFileSync(path.resolve(__dirname, './config/config.json'));
+const config = null;
 const env = 'dev'
 if(config && config.mysql){
   env = config.mysql.env
+}else{
+  try{
+    config =fs.readFileSync(path.resolve(__dirname, './config/config.json'))
+  }catch(err){
+    // console.log(err)
+  }
 }
 
 // 打印错误并写入日志

@@ -6,9 +6,6 @@ const operation = require('./src/db.operation');
 const SQL = require('./src/libs/getSQL/index.js');
 const getSQLStr = require('./src/libs/getSQLStr.js');
 const sqlConfig = require('./src/libs/sqlConfig.js');
-const fs = require('fs');
-const path = require('path');
-
 
 /**
  * 通用接口入口函数
@@ -17,15 +14,9 @@ const path = require('path');
  */
 class mysql_help extends getSQLStr{
   constructor(tableName, cf){
-    const config = cf ? cf : mysql_help.getCacheConfig();
-    super(tableName, config)
-    // this.db_name = allConfig.db_name; // 数据库名称
-    // this.table_name =  allConfig.table_name; // 表名称
-    // this.dbConstruct =  allConfig.dbConstruct; // 表头字段
-    // this.id_name =  allConfig.id_name; // 表头 id 字段名
-    this.db_operation = new operation(config.mysql); // 查询数据库接口
+    super(tableName, cf)
+    this.db_operation = new operation(this.config.mysql); // 查询数据库接口
     this.textTip = this._getTextTip(tableName, this.dbConstruct.textTip); // 提示文字
-    console.log(this);
   }
 
   // 新增单条
@@ -140,19 +131,7 @@ class mysql_help extends getSQLStr{
       find: 'query ' + text,
     };
   };
-
 }
-
-mysql_help.getCacheConfig = function() {
-  const dbConstruct = fs.readFileSync(path.resolve(__dirname, 'src/config/column.json'));
-  const mysql = fs.readFileSync(path.resolve(__dirname, 'src/config/config.json'));
-  let mConfig = JSON.parse(mysql.toString())
-  return {
-    database: mConfig.db,
-    dbConstruct: JSON.parse(dbConstruct.toString()),
-    mysql: mConfig,
-  };
-};
 
 // 引入
 mysql_help.config = function(config, cb) {

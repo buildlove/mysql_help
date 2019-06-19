@@ -6,3 +6,6 @@ userTable.getAllRows().then(function(data){
 })
 // let sql = userTable.getAllRows()
 // console.log(sql)
+
+// npm version 2.1.19
+// npm publish
