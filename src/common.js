@@ -174,17 +174,18 @@ function whereField(field) {
   let condition = ""
   if(field.orAnd){
     condition = field.orAnd.match('or') ? ' or ' : ' and '
+    delete field.orAnd
   }else{
     condition = ' and '
-  }
-  if(typeof field === 'string'){
-    field = field.replace(/\'/g, '"')
-    field = JSON.parse(field);
   }
   let keys = Object.keys(field);
   let result = [];
   keys.forEach(function (key) {
-    result.push(`${key}='${field[key]}'`);
+    if(typeof field[key] === 'string'){
+      result.push(`${key}='${field[key]}'`);
+    } else if(Array.isArray(field[key]) && field[key].length){
+      result.push(`${key} in('${field[key].join("', '")}')`);
+    }
   })
   return result.join(condition)
 }

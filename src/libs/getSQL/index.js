@@ -13,6 +13,7 @@ const IsExistDBSQL = require('./IsExistDBSQL.js')
 const UpdateRowSQL = require('./UpdateRowSQL.js')
 const UpdateRowsSQL = require('./UpdateRowsSQL.js')
 const GetCountSQL = require('./GetCountSQL.js')
+const AggregSQL = require('./AggregSQL.js')
 
 module.exports = {
   AddDataSQL,
@@ -29,5 +30,6 @@ module.exports = {
   IsExistDBSQL,
   UpdateRowSQL,
   UpdateRowsSQL,
-  GetCountSQL
+  GetCountSQL,
+  AggregSQL
 }

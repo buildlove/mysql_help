@@ -1,3 +1,5 @@
+let { whereField } = require('../../common.js')
+
 /**
  * 获取数据通过页码和每条数目
  * @param {number} pageNum 第N页
@@ -6,7 +8,7 @@
  * @param {number} wherefield 按条件查询
  */
 const GetRowsByPageSQL = function(self, pageNum, everyPageNum, orderfield, wherefield){
-  let where = wherefield ? `where ${whereField(wherefield)}`:""
+  let where = whereField(wherefield) ? `where ${whereField(wherefield)}`:""
   let sql = ""
   let order = ""
   if(orderfield){//排序
@@ -19,23 +21,5 @@ const GetRowsByPageSQL = function(self, pageNum, everyPageNum, orderfield, where
   }
   return sql
 }
-// 转换对象为where条件语句
-function whereField(field) {
-  let condition = ""
-  if(field.orAnd){
-    condition = field.orAnd.match('or') ? ' or ' : ' and '
-  }else{
-    condition = ' and '
-  }
-  if(typeof field === 'string'){
-    field = field.replace(/\'/g, '"')
-    field = JSON.parse(field);
-  }
-  let keys = Object.keys(field);
-  let result = [];
-  keys.forEach(function (key) {
-    result.push(`${key}='${field[key]}'`);
-  })
-  return result.join(condition)
-}
+
 module.exports = GetRowsByPageSQL

@@ -57,8 +57,8 @@ class mysql_help extends getSQLStr{
   };
 
   // 获取整张表的条数
-  getCount() {
-    const sql = SQL.GetCountSQL(this);
+  getCount(where) {
+    const sql = SQL.GetCountSQL(this, where);
     return this.db_operation.select(sql, this.textTip.find);
   };
 

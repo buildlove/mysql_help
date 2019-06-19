@@ -6,7 +6,7 @@ let { whereField } = require('../../common.js')
  * @param {*} table_name 表名
  */
 const GetCountSQL = function(self, whereFi) {
-  let where = whereFi ? ` where ${whereField(whereFi)}`:""
+  let where = whereField(whereFi) ? ` where ${whereField(whereFi)}`:""
   const sql = `SELECT COUNT(*) FROM ${self.table_name}${where}`;
   return sql;
 };

@@ -28,6 +28,11 @@ class getSQL {
     };
   };
 
+  // 聚合单个字段
+  AggregSQL (field) {
+    return SQL.AggregSQL(this, field)
+  }
+
   // 添加数据
   addDataSQL (rowDatas) {
     return SQL.AddDataSQL(this, rowDatas);
