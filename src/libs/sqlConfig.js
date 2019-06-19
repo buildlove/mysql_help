@@ -125,7 +125,7 @@ async function get_db_struction(mysql) {
           let columns = Object.keys(db_struction[keys[i]])
           let primary = false
           k.forEach(function(item){
-            if(columns.includes(item.column_name)){
+            if(columns.includes(item.column_name) && !primary){
               db_struction[keys[i]][item.column_name] = 'primary';
               primary = true;
             }

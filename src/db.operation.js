@@ -94,7 +94,7 @@ db_operation.prototype.update = function (sql, text) {
           for(let i=0;i< result.affectedRows;i++){
             r.push("1")
           }
-          resolve({ status: 1, result: r});
+          resolve({ status: 1, result: r.length});
         } else {
           resolve({ status: 0, msg: text + 'failed' });
         }

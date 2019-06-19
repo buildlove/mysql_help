@@ -10,7 +10,7 @@ function whereField(field, orAnd) {
   if(orAnd){
     condition = orAnd.match('or') ? ' or ' : ' and '
   }else{
-    condition = ' or '
+    condition = ' and '
   }
   if(typeof field === 'string'){
     field = field.replace(/\'/g, '"')

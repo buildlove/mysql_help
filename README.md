@@ -1,12 +1,10 @@
 # mysql_help
 
-<!-- [文档](https://www.showdoc.cc/mysqlhelp) -->
+## QuickStart
 
-## 引入插件和配置
+### Development
 
-#### 项目中配置使用
-
-在 app.js 中配置
+app.js
 
 ```
 
@@ -20,7 +18,7 @@ mysqlHelp.config(config)
 
 ```
 
-在其他文件中使用
+other.js
 
 ```
 
@@ -34,13 +32,13 @@ mysqlHelp.config(config)
 
 ```
 
-#### 直接使用
+### test
 
 ```
   const mysqlHelp = require('mysql_help')
 
   mysql_help.config({
-    "mysql": { // mysql 基本配置
+    "mysql": {
         "host": "127.0.0.1",
         "port": "3306",
         "user": "root",
@@ -66,3 +64,5 @@ mysqlHelp.config(config)
   })
 
 ```
+
+> 一张表只标记一个主键，当有多个主键时，按顺序标记第一个。

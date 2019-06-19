@@ -169,6 +169,26 @@ function uuid(num){
   return returnStr;
 }
 
+// 转换对象为where条件语句
+function whereField(field) {
+  let condition = ""
+  if(field.orAnd){
+    condition = field.orAnd.match('or') ? ' or ' : ' and '
+  }else{
+    condition = ' and '
+  }
+  if(typeof field === 'string'){
+    field = field.replace(/\'/g, '"')
+    field = JSON.parse(field);
+  }
+  let keys = Object.keys(field);
+  let result = [];
+  keys.forEach(function (key) {
+    result.push(`${key}='${field[key]}'`);
+  })
+  return result.join(condition)
+}
+
 module.exports = {
   deepClone,
   uuid,
@@ -179,5 +199,6 @@ module.exports = {
   getPrimaryKey,
   stringToArray2,
   fsReadFileAsync,
-  fsReadFilesAsync
+  fsReadFilesAsync,
+  whereField
 }
