@@ -114,7 +114,7 @@ db_operation.prototype.select = function (sql, text) {
   return new Promise(function (resolve, reject) {
     me._getConnetion(sql, function (err, result, fields) {
       if (err) {
-        reject(err);
+        console.log(err);
       } else {
         if (result && result.length) {
           resolve({ status: 1, result: result });
@@ -167,14 +167,14 @@ db_operation.prototype.query = function(sql) {
 db_operation.prototype._getConnetion = function (sql, cb) {
   this.pool.getConnection(function (err, connection) {
     if (err) {
-      logger.error(err);
+      // logger.error(err);
       logger.debug("db connetion failed")
     } else {
       connection.query(sql, function (error, results, fields) {
         cb(error, results, fields);
         connection.release();
         if (error) {
-          logger.error(error);
+          // logger.error(error);
         }
       })
     }

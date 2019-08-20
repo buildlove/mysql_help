@@ -69,8 +69,8 @@ class getSQL {
   }
 
   // 获取表内所有数据
-  getAllRowsSQL () {
-    return SQL.GetAllRowsSQL(this);
+  getAllRowsSQL (where) {
+    return SQL.GetAllRowsSQL(this, where);
   }
   // 获取数据库内所有表名称
   getAllTableNameSQL () {
@@ -131,6 +131,11 @@ class getSQL {
   // 更新多行
   updateRowsSQL (rowDatas) {
     return SQL.UpdateRowsSQL(this, rowDatas);
+  }
+
+  // 模糊匹配整张表或传入的单个字段
+  getRowsByLikeSQL (fields, key) {
+    return SQL.GetRowsByLikeSQL(this, key, fields )
   }
 }
 

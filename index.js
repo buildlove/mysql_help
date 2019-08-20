@@ -18,6 +18,17 @@ class mysql_help extends getSQLStr{
     this.db_operation = new operation(this.config.mysql); // 查询数据库接口
     this.textTip = this._getTextTip(tableName, this.dbConstruct.textTip); // 提示文字
   }
+  getRowsByLikeSQL(key, field){
+    const sqlResult = SQL.GetRowsByLikeSQL(this, key, field);
+    console.log('=========================end')
+    return this.db_operation.select(sqlResult, this.textTip.find);
+  }
+  
+  // 聚合指定字段
+  Aggreg(field, where){
+    const sqlResult = SQL.AggregSQL(this, field, where);
+    return this.db_operation.select(sqlResult, this.textTip.find);
+  }
 
   // 新增单条
   addRow(rowDatas) {
@@ -32,9 +43,8 @@ class mysql_help extends getSQLStr{
   }
 
   // 获取所有
-  getAllRows() {
-    console.log(this)
-    const sql = SQL.GetAllRowsSQL(this);
+  getAllRows(where) {
+    const sql = SQL.GetAllRowsSQL(this, where);
     return this.db_operation.select(sql, this.textTip.find);
   };
 

@@ -29,7 +29,11 @@ function format(id_name, rowDatas, dbConstruct){
   // 根据表结构调整顺序, 新增 id
   for (let i = 0; i < data.length;i++){
     let row = data[i]
-    row[id_name] = row[id_name] ? row[id_name] : uuid(15)
+    if(!row[id_name]){
+      delete dbConstruct[id_name]
+    }
+    console.log(dbConstruct, '======')
+    // row[id_name] = row[id_name] ? row[id_name] : uuid(15)
     let arg = sortArg(row, dbConstruct);
     args.push(arg)
   }

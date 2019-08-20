@@ -169,9 +169,24 @@ function uuid(num){
   return returnStr;
 }
 
+/**
+ * 对数组进行去重和去除空的字段
+ * @param {Array} arr 需要去重和去除空的字符
+ */
+function uniqArr(arr) {
+  const newArr = []
+  arr.forEach(function(item) {
+    if (item && !newArr.includes(item)) {
+      newArr.push(item)
+    }
+  })
+  return newArr
+}
+
 // 转换对象为where条件语句
 function whereField(field) {
   let condition = ""
+  if(!field){return}
   if(field.orAnd){
     condition = field.orAnd.match('or') ? ' or ' : ' and '
     delete field.orAnd
@@ -181,10 +196,61 @@ function whereField(field) {
   let keys = Object.keys(field);
   let result = [];
   keys.forEach(function (key) {
-    if(typeof field[key] === 'string'){
-      result.push(`${key}='${field[key]}'`);
+    if(typeof field[key] === 'string' || typeof field[key] === 'number'){
+      // 当传入的值为isNotNull时 添加where条件
+      if(field[key] === 'isNull'){
+        result.push(`${key} IS NULL`);
+      }else{
+        result.push(`${key}='${field[key]}'`);
+      }
+
     } else if(Array.isArray(field[key]) && field[key].length){
       result.push(`${key} in('${field[key].join("', '")}')`);
+    }
+  })
+  return result.join(condition)
+}
+// 转换对象为where条件语句 模糊匹配
+function whereField1(field) {
+  let condition = ""
+  if(!field){return}
+  if(field.orAnd){
+    condition = field.orAnd.match('or') ? ' or ' : ' and '
+    delete field.orAnd
+  }else{
+    condition = ' and '
+  }
+  let keys = Object.keys(field);
+  let result = [];
+  keys.forEach(function (key) {
+    if(typeof field[key] === 'string' || typeof field[key] === 'number'){
+      result.push(`${key} like '%${field[key]}%'`);
+    } else if(Array.isArray(field[key]) && field[key].length){
+      let fieldVal = uniqArr(field[key])
+      if(fieldVal.length <= 1){
+        result.push(`${key} like '%${fieldVal[0]}%'`);
+      } else {
+        let w = []
+        fieldVal.forEach(function(item, i){
+          let v = ''
+          if(i === 0){
+            v+='('
+          }
+
+          v+=`${key} like '%${item}%'`
+
+          if(i + 1 === fieldVal.length){
+            v+=')'
+          }
+          if(!w.includes(v)){
+            w.push(v)
+          }
+        })
+        let wStr = w.join(' or ')
+        if(!result.includes(wStr)){
+          result.push(wStr)
+        }
+      }
     }
   })
   return result.join(condition)
