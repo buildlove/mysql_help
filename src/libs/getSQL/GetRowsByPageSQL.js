@@ -9,9 +9,13 @@ let { whereField } = require('../../common.js')
  */
 const GetRowsByPageSQL = function(self, pageNum, everyPageNum, orderfield, wherefield){
   console.log('========================', pageNum, everyPageNum, orderfield, wherefield)
-  let where = whereField(wherefield) ? `where ${whereField(wherefield)}`:""
+  let dbConstructKey = self.dbConstruct ? Object.keys(self.dbConstruct) : false
+  let where = whereField(wherefield, dbConstructKey) ? `where ${whereField(wherefield, dbConstructKey)}`:""
   let sql = ""
   let order = ""
+  // order 可以为对象 {key: 'DESC'}  {key: 'ASC'}
+  // order 可以为字符串 'key'
+  // order 可以为数组 ['key', 'key1']  或 [{key: 'DESC'}, {key: 'ASC'}]   (未支持)
   if(orderfield){//排序
     if(typeof orderfield === 'string'){ // 默认排序
       order = `ORDER BY ${orderfield} DESC`

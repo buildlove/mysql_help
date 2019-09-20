@@ -5,7 +5,8 @@ let { whereField } = require('../../common.js')
  * @param {*} table_name 表名
  */
 const GetAllRowsSQL = function(self, wherefield){
-  let where = whereField(wherefield) ? ` where ${whereField(wherefield)}`:""
+  let dbConstructKey = self.dbConstruct ? Object.keys(self.dbConstruct) : false
+  let where = whereField(wherefield, dbConstructKey) ? ` where ${whereField(wherefield, dbConstructKey)}`:""
   let sql = `select * from ${self.table_name}${where}`;
   return sql
 }

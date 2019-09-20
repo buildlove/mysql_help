@@ -1,7 +1,9 @@
 let { whereField } = require('../../common.js')
 
 const GetRowsByWhereSQL = function(self, field, orAnd){
-  let where = whereField(field, orAnd);
+  let dbConstructKey = self.dbConstruct ? Object.keys(self.dbConstruct) : false
+  field.orAnd = orAnd
+  let where = whereField(field, dbConstructKey);
   let sql = `select * from ${self.tableName} where ${where}`;
   return sql
 }

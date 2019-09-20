@@ -34,11 +34,12 @@ db_operation.prototype.insert = function (sql, text) {
 
   return new Promise(function (resolve, reject) {
     me._getConnetion(sql, function (err, result, fields) {
+      console.log(result, 'ppppp')
       if (err) {
         reject(err);
       } else {
         if (result && result.insertId > -1) {
-          resolve({ status: 1, msg: text + "success" });
+          resolve({ status: 1, msg: text + "success", insertId: result.insertId });
         } else {
           resolve({ status: 0, msg: text + 'failed' });
         }

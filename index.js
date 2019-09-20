@@ -18,9 +18,15 @@ class mysql_help extends getSQLStr{
     this.db_operation = new operation(this.config.mysql); // 查询数据库接口
     this.textTip = this._getTextTip(tableName, this.dbConstruct.textTip); // 提示文字
   }
+
+  // 通过sql语句直接获取数据
+  getRowsBySQL(SQL){
+    return this.db_operation.select(SQL, this.textTip.find);
+  }
+
+  // 全字段模糊匹配数据
   getRowsByLikeSQL(key, field){
     const sqlResult = SQL.GetRowsByLikeSQL(this, key, field);
-    console.log('=========================end')
     return this.db_operation.select(sqlResult, this.textTip.find);
   }
   

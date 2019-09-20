@@ -182,30 +182,63 @@ function uniqArr(arr) {
   })
   return newArr
 }
+function concatKeys(keys, cancatLike){
+  let result = []
+  for (let i = 0; i < keys.length; i++) {
+    const key = keys[i];
+    if(key && cancatLike){
+      result.push(`${key} LIKE '%${cancatLike}%'`)
+    }
+  }
+  return "(" + result.join(' OR ') + ")"
+}
 
 // 转换对象为where条件语句
-function whereField(field) {
-  let condition = ""
-  if(!field){return}
-  if(field.orAnd){
-    condition = field.orAnd.match('or') ? ' or ' : ' and '
-    delete field.orAnd
-  }else{
-    condition = ' and '
-  }
-  let keys = Object.keys(field);
+function whereField(field, dbConstructKeys) {
+  // 深拷贝 防止参数误删
+  let cacheField = deepClone(field)
   let result = [];
+
+  // 处理与或非
+  let condition = ""
+  if(!cacheField){return}
+  if(cacheField.orAnd){ // 与或非默认为and
+    condition = cacheField.orAnd.match('or') ? ' OR ' : ' AND '
+    delete cacheField.orAnd
+  }else{
+    condition = ' AND '
+  }
+
+  // 处理保留关键字 cancat_like(用于模糊匹配关键字 ---  暂时只支持一个)
+  if(cacheField.cancat_like){
+    if(cacheField.cancat_like_fields){
+      dbConstructKeys = deepClone(cacheField.cancat_like_fields)
+      delete cacheField.cancat_like_fields
+    }
+
+    if(dbConstructKeys){
+      // concat 有的字段不显示 换成 or
+      // result.push(`CONCAT('${dbConstructKeys.join(',')}') LIKE '%${field.cancat_like}%'`)
+      let concatStr = concatKeys(dbConstructKeys, field.cancat_like)
+      result.push(concatStr)
+    }
+
+    delete cacheField.cancat_like
+  }
+
+  // 处理主要参数转换为sql
+  let keys = Object.keys(cacheField);
   keys.forEach(function (key) {
-    if(typeof field[key] === 'string' || typeof field[key] === 'number'){
+    if(typeof cacheField[key] === 'string' || typeof cacheField[key] === 'number'){
       // 当传入的值为isNotNull时 添加where条件
-      if(field[key] === 'isNull'){
+      if(cacheField[key] === 'isNull'){
         result.push(`${key} IS NULL`);
       }else{
-        result.push(`${key}='${field[key]}'`);
+        result.push(`${key}='${cacheField[key]}'`);
       }
 
-    } else if(Array.isArray(field[key]) && field[key].length){
-      result.push(`${key} in('${field[key].join("', '")}')`);
+    } else if(Array.isArray(cacheField[key]) && cacheField[key].length){
+      result.push(`${key} in('${cacheField[key].join("', '")}')`);
     }
   })
   return result.join(condition)
