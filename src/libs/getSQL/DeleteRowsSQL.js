@@ -1,25 +1,33 @@
+let { whereField } = require('../../common.js')
+
 /**
  * 根据任意字段删除相关数据
- * @param {string|Array<string>} ids 需要删除的 id
+ * @param {string|Array<string>} whereItem 需要删除的 id
  * @param {string} field (可选)需要删除的字段名称
  */
-const DeleteRowsSQL = function(self, ids, field){
+const DeleteRowsSQL = function(self, whereItem, field){
   let field_name = field ? field : self.id_name;
-  let where = '';
 
-  if (typeof ids === 'string') {
 
-    where = `${field_name} in('${ids}')`;
+  if (typeof whereItem === 'string') { 
 
-  } else if (ids && Array.isArray(ids)) {
+    where = `${field_name} in('${whereItem}')`;
 
-    let idsToStr = [];
-    ids.forEach(function (id) {
-      idsToStr.push(`'${id}'`);
-    })
-    where = `${field_name} in(${idsToStr.join(",")})`;
+  } else if (whereItem && Array.isArray(whereItem)) {
+
+    let idsToStr='';
+    idsToStr += "'";
+    idsToStr += whereItem.join("','");
+    idsToStr += "'"
+    where = `${field_name} in(${idsToStr})`;
+
+  } else if (whereItem && typeof whereItem === 'object'){
+
+    let dbConstructKey = self.dbConstruct ? Object.keys(self.dbConstruct) : false
+    where = whereField(whereItem, dbConstructKey) ? `${whereField(whereItem, dbConstructKey)}`:""
 
   }
+  if(!where){console.log("参数错误", field)}
   let sql = `delete from ${self.table_name} where ${where}`
   return sql
 }

@@ -6,13 +6,12 @@ let errorCode = require('../ErrorCode/code.json')
  * @param {string} id_name            表id字段的名称
  * @param {string} table_namedata     表
  */
-const AddDataSQL = function(self, rowDatas){
-  let args = format(self.id_name, rowDatas, self.dbConstruct)
+const AddDataSQL = function(self, rowDatas){  let args = format(self.id_name, rowDatas, self.dbConstruct)
 
   if(args && args.length){
     let tableTitle = `${self.table_name}(` + Object.keys(self.dbConstruct).join(",") + ')'
     let v = values(args)
-  
+    // console.log(v)
     let sql = `INSERT INTO ${tableTitle} VALUES${v}`;
     return sql
   }else{
@@ -23,19 +22,21 @@ const AddDataSQL = function(self, rowDatas){
 
 // 规范数据结构
 function format(id_name, rowDatas, dbConstruct){
-  let data = rowDatas && Array.isArray(rowDatas) ? rowDatas : [rowDatas]
+  let datas = rowDatas && Array.isArray(rowDatas) ? rowDatas : [rowDatas]
   let args = [];
-
+  console.log(datas, '111')
   // 根据表结构调整顺序, 新增 id
-  for (let i = 0; i < data.length;i++){
-    let row = data[i]
-    if(!row[id_name]){
+  for (let i = 0; i < datas.length;i++){
+    let row = datas[i]
+    if(row && !row[id_name]){
       delete dbConstruct[id_name]
     }
-    console.log(dbConstruct, '======')
+    // console.log(dbConstruct, '======')
     // row[id_name] = row[id_name] ? row[id_name] : uuid(15)
-    let arg = sortArg(row, dbConstruct);
-    args.push(arg)
+    if(row){
+      let arg = sortArg(row, dbConstruct);
+      args.push(arg)
+    }
   }
 
   return args

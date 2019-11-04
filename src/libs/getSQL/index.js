@@ -12,6 +12,7 @@ const GetRowsByWhereSQL = require('./GetRowsByWhereSQL.js')
 const IsExistDBSQL = require('./IsExistDBSQL.js')
 const UpdateRowSQL = require('./UpdateRowSQL.js')
 const UpdateRowsSQL = require('./UpdateRowsSQL.js')
+const UpdateSameField = require('./UpdateSameField.js')
 const GetCountSQL = require('./GetCountSQL.js')
 const AggregSQL = require('./AggregSQL.js')
 const GetRowsByLikeSQL = require('./GetRowsByLikeSQL.js')
@@ -31,6 +32,7 @@ module.exports = {
   IsExistDBSQL,
   UpdateRowSQL,
   UpdateRowsSQL,
+  UpdateSameField,
   GetCountSQL,
   AggregSQL,
   GetRowsByLikeSQL

@@ -4,7 +4,7 @@ const logger = require('../logger.js')
 const fs = require('fs');
 const path = require('path');
 
-class getSQL {
+class getSQLStr {
   constructor(tableName, cf){
     this.config = cf ? cf : this._getCacheConfig();
     const dbConstruct = this.config.dbConstruct;
@@ -114,7 +114,7 @@ class getSQL {
 
   // 获取表的总条数
   getCountSQL (whereField){
-    console.log(whereField)
+    // console.log(whereField)
     return SQL.GetCountSQL(this, whereField);
   }
 
@@ -133,10 +133,15 @@ class getSQL {
     return SQL.UpdateRowsSQL(this, rowDatas);
   }
 
+  // 更新同一字段为同一值
+  UpdateSameField (field, whereField) {
+    return SQL.UpdateSameField(this, field, whereField);
+  }
+
   // 模糊匹配整张表或传入的单个字段
   getRowsByLikeSQL (fields, key) {
     return SQL.GetRowsByLikeSQL(this, key, fields )
   }
 }
 
-module.exports = getSQL
+module.exports = getSQLStr

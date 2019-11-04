@@ -7,8 +7,10 @@
  * @param {*} rowDatas 传入数据
  */
 const UpdateRowsSQL = function(self, rowDatas){
+  console.log(rowDatas)
   let SQL = `UPDATE ${self.table_name} SET \n`
   let KEYS = Object.keys(self.dbConstruct)
+  console.log(KEYS)
   let reduce = false
   KEYS.forEach(function (key, index) {
     let fieldSQL = ""
@@ -27,6 +29,7 @@ const UpdateRowsSQL = function(self, rowDatas){
         SQL += fieldSQL
       }
     }
+    console.log(fieldSQL)
   })
   // 去掉,
   if(reduce){

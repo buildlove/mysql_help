@@ -17,7 +17,7 @@ const { fsWriteFile, dbValidEmpty } = require('../common.js');
 const fileDir = path.join(__dirname, '../', 'config');
 let mysql_config = null;
 
-const sqlConfig = async function(config) {
+const sqlConfig = async function(config, cb) {
   if (!fs.existsSync(fileDir)) {
     fs.mkdirSync(fileDir);
   }
@@ -31,6 +31,7 @@ const sqlConfig = async function(config) {
   }
 
   const [ empty, p ] = dbValidEmpty(config.mysql);
+
   if (!empty) {
     if (!fs.existsSync(fileDir)) {
       fs.mkdirSync(fileDir);
@@ -63,7 +64,7 @@ const sqlConfig = async function(config) {
     },
   };
   initDataBase(dbEnum, config);
-  return mysql_config;
+  cb(mysql_config);
 };
 
 // 如果数据库不存在 创建数据库和按字段创建表
@@ -100,11 +101,14 @@ async function get_db_struction(mysql) {
   const tablesSQL = GetAllTableNameSQL(mysql);
   const db_operation = new operation(mysql);
   const results = await db_operation.query(tablesSQL);
+  // console.log("获取所有数据库表名", results)
   const db_struction = {};
-  results.forEach(async function(RowDataPacket) {
-    const columnSQL = GetAllColumnName(mysql, RowDataPacket.TABLE_NAME);
-    db_struction[RowDataPacket.TABLE_NAME] = db_operation.query(columnSQL);
+  results.forEach(function(RowDataPacket) {
+    // mac 下 为大写TABLE_NAME  linux下为小写table_name
+    const columnSQL = GetAllColumnName(mysql, RowDataPacket.TABLE_NAME || RowDataPacket.table_name);
+    db_struction[RowDataPacket.TABLE_NAME || RowDataPacket.table_name] = db_operation.query(columnSQL);
   });
+
   const keys = Object.keys(db_struction);
   const values = Object.values(db_struction);
   return new Promise(function(resolve) {
@@ -114,7 +118,7 @@ async function get_db_struction(mysql) {
         db_struction[keys[i]] = {};
         for (let j = 0; j < allR.length; j++) {
           const R = allR[j];
-          db_struction[keys[i]][R.COLUMN_NAME] = '';
+          db_struction[keys[i]][R.COLUMN_NAME || R.column_name] = '';
         }
         // 查找primary key
         const kSQL = GetPrimaryKeySQL(keys[i]);

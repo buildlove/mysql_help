@@ -6,6 +6,7 @@
  *       getRowsByIds(["李四"], "username")
  */
 const GetRowsByIdsSQL = function(self, ids, otherField){
+  console.log(ids, otherField)
   let field_name = otherField ? otherField : self.id_name
   let idsField = [];
   if (typeof ids === 'string') {

@@ -1,14 +1,40 @@
 {
-  "name": "mysql_help",
-  "version": "2.1.24",
-  "description": "node 到数据库最后一公里",
-  "main": "app.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon"
+  "_from": "mysql_help@2.1.22",
+  "_id": "mysql_help@2.1.22",
+  "_inBundle": false,
+  "_integrity": "sha512-+DtnpK5himiU9QKRIVoTYQKaBD8ox5nf50bUZrvkv54HBgtogBdzrVz5FC2Mg6iJTuOboZYQquZWh7qHW7Ay0Q==",
+  "_location": "/mysql_help",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "version",
+    "registry": true,
+    "raw": "mysql_help@2.1.22",
+    "name": "mysql_help",
+    "escapedName": "mysql_help",
+    "rawSpec": "2.1.22",
+    "saveSpec": null,
+    "fetchSpec": "2.1.22"
   },
-  "author": "liyang",
-  "license": "ISC",
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/mysql_help/-/mysql_help-2.1.22.tgz",
+  "_shasum": "5c93f17a153567afdf5ae88c6ac38134fa15c64e",
+  "_spec": "mysql_help@2.1.22",
+  "_where": "/Users/liyang/Desktop/feijieshebei/veWifiServer",
+  "author": {
+    "name": "liyang"
+  },
+  "bundleDependencies": false,
+  "dependencies": {
+    "koa": "^2.5.3",
+    "koa-body": "^4.0.4",
+    "koa-bodyparser": "^4.2.1",
+    "koa-router": "^7.4.0"
+  },
+  "deprecated": false,
+  "description": "node 到数据库最后一公里",
   "devDependencies": {
     "@babel/plugin-transform-async-to-generator": "^7.4.4",
     "babel-cli": "^6.26.0",
@@ -17,10 +43,12 @@
     "babel-preset-stage-0": "^6.24.1",
     "mysql": "^2.16.0"
   },
-  "dependencies": {
-    "koa-body": "^4.0.4",
-    "koa-router": "^7.4.0",
-    "koa": "^2.5.3",
-    "koa-bodyparser": "^4.2.1"
-  }
+  "license": "ISC",
+  "main": "app.js",
+  "name": "mysql_help",
+  "scripts": {
+    "dev": "nodemon",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "version": "2.1.22"
 }

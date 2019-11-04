@@ -34,7 +34,7 @@ db_operation.prototype.insert = function (sql, text) {
 
   return new Promise(function (resolve, reject) {
     me._getConnetion(sql, function (err, result, fields) {
-      console.log(result, 'ppppp')
+      // console.log(result, 'ppppp')
       if (err) {
         reject(err);
       } else {
@@ -115,7 +115,7 @@ db_operation.prototype.select = function (sql, text) {
   return new Promise(function (resolve, reject) {
     me._getConnetion(sql, function (err, result, fields) {
       if (err) {
-        console.log(err);
+        reject(err);
       } else {
         if (result && result.length) {
           resolve({ status: 1, result: result });
