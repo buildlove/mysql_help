@@ -187,7 +187,7 @@ db_operation.prototype._getConnetion = function (sql, cb) {
  * @private
  */
 db_operation.prototype._debug = function (sql) {
-  if (env === 'dev') {
+  if (env === 'dev' && !sql.includes('count(*)') && !sql.includes('COUNT(*)')) {
     logger.debug(sql)
   }
 }

@@ -1,28 +1,4 @@
 {
-  "_from": "mysql_help@2.1.22",
-  "_id": "mysql_help@2.1.22",
-  "_inBundle": false,
-  "_integrity": "sha512-+DtnpK5himiU9QKRIVoTYQKaBD8ox5nf50bUZrvkv54HBgtogBdzrVz5FC2Mg6iJTuOboZYQquZWh7qHW7Ay0Q==",
-  "_location": "/mysql_help",
-  "_phantomChildren": {},
-  "_requested": {
-    "type": "version",
-    "registry": true,
-    "raw": "mysql_help@2.1.22",
-    "name": "mysql_help",
-    "escapedName": "mysql_help",
-    "rawSpec": "2.1.22",
-    "saveSpec": null,
-    "fetchSpec": "2.1.22"
-  },
-  "_requiredBy": [
-    "#USER",
-    "/"
-  ],
-  "_resolved": "https://registry.npmjs.org/mysql_help/-/mysql_help-2.1.22.tgz",
-  "_shasum": "5c93f17a153567afdf5ae88c6ac38134fa15c64e",
-  "_spec": "mysql_help@2.1.22",
-  "_where": "/Users/liyang/Desktop/feijieshebei/veWifiServer",
   "author": {
     "name": "liyang"
   },

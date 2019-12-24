@@ -27,6 +27,9 @@ class getSQLStr {
       mysql: mConfig,
     };
   };
+  commonFun() {
+    return common
+  }
 
   // 聚合单个字段
   AggregSQL (field) {

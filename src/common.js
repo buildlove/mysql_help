@@ -288,6 +288,28 @@ function whereField1(field) {
   })
   return result.join(condition)
 }
+// 转换对象为order排序
+function orderField(orderfield) {
+  let order = ""
+  // order 可以为对象 {key: 'DESC'}  {key: 'ASC'}
+  // order 可以为字符串 'key'
+  // order 可以为数组 ['key', 'key1']  或 [{key: 'DESC'}, {key: 'ASC'}]   (未支持)
+  if(orderfield){//排序
+    if(typeof orderfield === 'string'){ // 默认排序
+      order = `ORDER BY ${orderfield} DESC`
+    } else if(typeof orderfield === 'object'){ // 设置正序或者倒序
+      for(key in orderfield){
+        order = `ORDER BY ${key} ${orderfield[key] === '1' ? 'DESC' : 'ASC'}`
+      }
+    }
+  }
+  return order
+}
+function limitField(p, g){
+  if(p>=0 && g){
+    return `limit ${p*g},${g}`
+  }
+}
 
 module.exports = {
   deepClone,
@@ -300,5 +322,7 @@ module.exports = {
   stringToArray2,
   fsReadFileAsync,
   fsReadFilesAsync,
-  whereField
+  whereField,
+  orderField,
+  limitField
 }

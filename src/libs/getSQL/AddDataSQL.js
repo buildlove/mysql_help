@@ -1,4 +1,3 @@
-let { uuid } = require('../../common')
 let errorCode = require('../ErrorCode/code.json')
 
 /**
@@ -10,7 +9,7 @@ const AddDataSQL = function(self, rowDatas){  let args = format(self.id_name, ro
 
   if(args && args.length){
     let tableTitle = `${self.table_name}(` + Object.keys(self.dbConstruct).join(",") + ')'
-    let v = values(args)
+    let v = getValues(args)
     // console.log(v)
     let sql = `INSERT INTO ${tableTitle} VALUES${v}`;
     return sql
@@ -24,7 +23,6 @@ const AddDataSQL = function(self, rowDatas){  let args = format(self.id_name, ro
 function format(id_name, rowDatas, dbConstruct){
   let datas = rowDatas && Array.isArray(rowDatas) ? rowDatas : [rowDatas]
   let args = [];
-  console.log(datas, '111')
   // 根据表结构调整顺序, 新增 id
   for (let i = 0; i < datas.length;i++){
     let row = datas[i]
@@ -43,21 +41,37 @@ function format(id_name, rowDatas, dbConstruct){
 }
 
 // 根据数据生成 sql 语句
-function values(args){
+function getValues(args){ // [{a: '111', b:'222'}]  || {a: '111', b:'222'}
+  if(!Array.isArray(args)){getValues([args])}
   let v = ""
+  let signal = "'" // 写死为单引号
   for(let i=0;i<args.length;i++){
-    let newVal = []
+    let newVal = ''
     let vs = args[i]
-    Object.values(vs).forEach(function (value) {
-      newVal.push('"' + value + '"')
+    let keyObj = Object.values(vs) // ['111', '222']
+    keyObj.forEach(function (value, index) {
+      if(value || value === 0 || typeof value === 'string'){
+
+        // 特殊处理单双引号
+        if(signal==="'" && typeof value === 'string' && value.includes("'")){ // 同时有双引号和单引号 替换所有单引号为双引号
+          value = value.replace(/\'/g, '"')
+        }
+
+        newVal += signal + value + signal
+      }else{ // value值不存在的统一变为null
+        newVal += null
+      }
+      if(keyObj.length !== index+1){
+        newVal += ','
+      }
     })
     let b = ','
     if(args.length === i+1){
       b = ';'
     }
-    v += ' (' + newVal.join(",") + ')' + b;
+    v += ' (' + newVal + ')' + b;
   }
-  return v
+  return v // ("111","2222",null);
 }
 
 // 根据表结构调整参数顺序
