@@ -1,5 +1,4 @@
 
-以下数据库仅仅只代表 mysql 数据库。
 1. 查询数据库数据
   select * from ${tableName} where ${where}
   (1) 使用 id 查询数据库数据。

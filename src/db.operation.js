@@ -192,4 +192,6 @@ db_operation.prototype._debug = function (sql) {
   }
 }
 
+db_operation.prototype._pools = pools
+
 module.exports = db_operation

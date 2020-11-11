@@ -17,9 +17,18 @@ class mysql_help extends getSQLStr{
     super(tableName, cf)
     this.db_operation = new operation(this.config.mysql); // 查询数据库接口
     this.textTip = ''
+    this.tableName = tableName
     if(this.dbConstruct){
       this.textTip = this._getTextTip(tableName, this.dbConstruct.textTip || ''); // 提示文字
     }
+  }
+  end(){
+    setTimeout(()=> {
+      this.db_operation._pools[this.config.mysql.database].end(function(err) {
+        // The connection is terminated now
+        console.log('关闭数据的连接')
+      })
+    },500)
   }
 
   // 通过sql语句直接获取数据
