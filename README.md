@@ -1,5 +1,7 @@
 # mysql_help
 
+文档链接 https://www.yuque.com/docs/share/411375d9-d449-43d1-921f-c338f3345afe
+
 ## QuickStart
 
 ### Development
