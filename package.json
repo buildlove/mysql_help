@@ -1,0 +1,30 @@
+{
+  "author": {
+    "name": "liyang"
+  },
+  "bundleDependencies": false,
+  "dependencies": {
+    "koa": "^2.5.3",
+    "koa-body": "^4.0.4",
+    "koa-bodyparser": "^4.2.1",
+    "koa-router": "^7.4.0"
+  },
+  "deprecated": false,
+  "description": "node 到数据库最后一公里",
+  "devDependencies": {
+    "@babel/plugin-transform-async-to-generator": "^7.4.4",
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "mysql": "^2.16.0"
+  },
+  "license": "ISC",
+  "main": "app.js",
+  "name": "mysql_help",
+  "scripts": {
+    "dev": "nodemon",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "version": "2.1.221"
+}

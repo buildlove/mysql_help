@@ -1,0 +1,791 @@
+多设备检测 
+三星（Samsung） Galaxy S5 G9009D 
+三星（Samsung） Galaxy S4 I9500 
+索尼（Sony） Xperia Z1 L39h 
+三星（Samsung） Galaxy Note 3 N9006 
+苹果（Apple） iPhone 3GS 
+苹果（Apple）  iPhone  4 
+苹果（Apple） iPhone  4 
+苹果（Apple） iPhone5 
+苹果（Apple） iPhone 5s 
+苹果（Apple） iPhone 5c 
+小米(XiaoMi） 红米1s 
+小米(XiaoMi） 小米(XiaoMi）2 
+小米(XiaoMi） 小米(XiaoMi）3 
+小米(XiaoMi） 红米Note 
+LG Nexus 5 
+LG G2 D802 
+三星（Samsung） Galaxy S5 G9008V 
+锤子 T1 
+华硕(ASUS） ZenFone 5 
+摩托罗拉（Motorola） Moto G 
+HTC One E8 
+HTC One M8t 
+HTC One M8t 
+HTC Desire S 
+索尼（Sony） Xperia Z Ultra XL39h 
+索尼（Sony） Xperia Z L36h 
+LG Optimus F7 
+LG Optimus G Pro 
+OPPO X909 
+华为（HuaWei） U9508 
+三星（Samsung） I9300 
+三星（Samsung） Note2 N7100 
+三星（Samsung） I9250 
+三星（Samsung） I8150 
+三星（Samsung） I9220 
+三星（Samsung） I9100 
+三星（Samsung） S5830 
+三星（Samsung） S5820 
+索尼（Sony） LT26i 
+联想（Lenovo） 乐Phone S1 
+酷派（CoolPad）8810 
+诺基亚（Nokia） Lumia 525 
+诺基亚（Nokia） Lumia 525 
+诺基亚（Nokia） Lumia 630 
+诺基亚（Nokia） Lumia 638 
+诺基亚（Nokia） 800 
+诺基亚（Nokia） Lumia 925 
+诺基亚（Nokia） Lumia 1020 
+诺基亚（Nokia） Lumia 1320 
+诺基亚（Nokia） Lumia 1520 
+诺基亚（Nokia） Asha 210 
+诺基亚（Nokia） Asha N503 
+诺基亚（Nokia） X 
+诺基亚（Nokia） XL 
+诺基亚（Nokia） E71 
+诺基亚（Nokia） E6
+诺基亚（Nokia） 220 
+诺基亚（Nokia） 502 
+诺基亚（Nokia） 515 
+诺基亚（Nokia） 5230XM 
+诺基亚（Nokia） 5250XM 
+诺基亚（Nokia） 5300 
+诺基亚（Nokia） 925T 
+诺基亚（Nokia） 5230XpressMusic 
+诺基亚（Nokia） C2-02 
+诺基亚（Nokia） N8 
+诺基亚（Nokia） N9 
+诺基亚（Nokia） N95 
+诺基亚（Nokia） N78 
+诺基亚（Nokia） N79 
+诺基亚（Nokia） N85 
+诺基亚（Nokia） N96 
+诺基亚（Nokia） N93i 
+诺基亚（Nokia） N97 
+诺基亚（Nokia） N97 mini 
+诺基亚（Nokia） N900 
+诺基亚（Nokia） N86 
+诺基亚（Nokia） N 
+诺基亚（Nokia） N 
+HTC 8X 
+HTC D816w 
+HTC Desire 816d 
+HTC Desire 816t 
+HTC Desire 610t 
+HTC X920e 
+HTC D516d 
+HTC 5088 
+HTC D316d 
+华为（HuaWei） G610-T11 
+华为（HuaWei） 荣耀 畅玩版 
+华为（HuaWei） Y511 
+华为（HuaWei） 荣耀 3X 
+华为（HuaWei） Ascend P6-T00 
+华为（HuaWei） G730-T00 
+华为（HuaWei） P6-C00 
+华为（HuaWei） C8816 
+华为（HuaWei） Ascend P6-U06 
+华为（HuaWei） 荣耀 3X pro 
+华为（HuaWei） Y320-T00 
+华为（HuaWei） Mate 
+华为（HuaWei） G730-T00 
+华为（HuaWei） Ascend G6-T00 
+华为（HuaWei） G6-C00 
+华为（HuaWei） Mate2 
+华为（HuaWei） Mate 2-C00 
+华为（HuaWei） Y516-T00 
+华为（HuaWei） Ascend P6 S 
+华为（HuaWei） Ascend P6-U06 
+华为（HuaWei） 荣耀 3C  
+华为（HuaWei） Y516-T00 
+华为（HuaWei） G610+ 
+华为（HuaWei） Ascend P7 
+华为（HuaWei） C8816D 
+华为（HuaWei） G730-C00 
+华为（HuaWei） D2 
+华为（HuaWei） G610+ 
+华为（HuaWei） 麦芒B199 
+华为（HuaWei） Y511 
+华为（HuaWei） Ascend P7-L00 
+华为（HuaWei） Ascend P7-L00 
+华为（HuaWei） 荣耀 6 
+华为（HuaWei） G350 
+三星（Samsung） Galaxy SIII I9300 
+三星（Samsung） S7572 
+三星（Samsung） I8552 
+三星（Samsung） I9158  
+三星（Samsung） I9082I 
+三星（Samsung） I8558 
+三星（Samsung） G3818 
+三星（Samsung） Galaxy Note3 N9009 
+
+三星（Samsung） S7568I 
+
+三星（Samsung） I8268 
+
+三星（Samsung） Galaxy S4 I959 
+
+三星（Samsung） Galaxy SIII I939D 
+
+三星（Samsung） Galaxy S4 I9502 
+
+三星（Samsung）（SAMSUNG）I9158P 
+
+三星（Samsung） I8552 
+
+三星（Samsung） GALAXY FAME GT-S6818 
+
+三星（Samsung） SCH-I739 
+
+三星（Samsung） I869 
+
+三星（Samsung） GALAXY GRAND2 G7106 
+
+三星（Samsung） I879 
+
+三星（Samsung） SCH-I829 
+
+三星（Samsung） GALAXY Mega I9208 
+
+三星（Samsung） I9082I 
+
+三星（Samsung） Galaxy Note 3 N9008V 
+
+三星（Samsung） SCH-i619 
+
+三星（Samsung） G3812 
+
+三星（Samsung） S7568I 
+
+三星（Samsung） GT-I9268 
+
+三星（Samsung） G3818 
+
+三星（Samsung） Galaxy Mega I9200 
+
+三星（Samsung） Galaxy Mega I9152 
+
+三星（Samsung） G3502U 
+
+三星（Samsung） I9168I 
+
+三星（Samsung） I8558 
+
+三星（Samsung） Galaxy Trend II GT-S7898I 
+
+三星（Samsung） I9300I 
+
+三星（Samsung） Galaxy Mega I9152P 
+
+三星（Samsung） I699I 
+
+三星（Samsung） Galaxy Mega P709 
+
+三星（Samsung） Galaxy Mega I9200 
+
+三星（Samsung） Galaxy Mega P729 
+
+三星（Samsung） S7572 
+
+三星（Samsung） G3819D 
+
+三星（Samsung） S7278U 
+
+三星（Samsung） Galaxy Tab3 T211 
+
+三星（Samsung） Galaxy Note II N7108 
+
+三星（Samsung） G3812 
+
+三星（Samsung） Galaxy Tab3 T311 
+
+三星（Samsung） GALAXY ACE3 I679 
+
+三星（Samsung） Galaxy S5 G9006V  
+
+三星（Samsung） S7272C 
+
+三星（Samsung） Galaxy Note 3 N9008S 
+
+三星（Samsung） GALAXY GRAND2 G7109 
+
+三星（Samsung） Galaxy Note 3 Lite N7508v 
+
+三星（Samsung） GALAXY GRAND2 G7106 
+
+三星（Samsung） GALAXY Trend3 G3502C 
+
+三星（Samsung） I9158P 
+
+三星（Samsung） G3509I 
+
+三星（Samsung） I9308I 
+
+三星（Samsung） Galaxy S4 I9508V 
+
+三星（Samsung） G3502I  
+
+三星（Samsung） GALAXY Trend 3 G3508I 
+
+三星（Samsung） Galaxy S4 I9507V  
+
+三星（Samsung） Galaxy Grand 2 G7108V 
+
+三星（Samsung） GT-S7278 
+
+三星（Samsung） Galaxy K Zoom C1116 
+
+三星（Samsung） I9308I 
+
+三星（Samsung） W2013 
+
+三星（Samsung） SCH-W899 
+
+三星（Samsung） GT-S7278 
+
+三星（Samsung） GT-B9388 
+
+三星（Samsung） Galaxy K Zoom C1158 
+
+三星（Samsung） P709E 
+
+三星（Samsung） W789 
+
+三星（Samsung） Galaxy S5 G9008W 
+
+三星（Samsung） W2014 
+
+三星（Samsung） Galaxy Tab3 P5200 
+
+三星（Samsung） SM-G3588V 
+
+三星（Samsung）（SAMSUNG） GT-I9118 
+
+三星（Samsung） Galaxy BEAM2 G3858 
+
+三星（Samsung） GALAXY Tab Q T2558 
+
+三星（Samsung） G3556D 
+
+三星（Samsung） Galaxy Note 3 Lite N7508v 
+
+三星（Samsung） GALAXY I8580 
+
+酷派（CoolPad） 大神F1 
+
+酷派（CoolPad） 8750 
+
+酷派（CoolPad） 5951 
+
+酷派（CoolPad） S6 
+
+酷派（CoolPad） 8908 
+
+酷派（CoolPad） 5872 
+
+酷派（CoolPad） 5890 
+
+酷派（CoolPad） 8720L 
+
+酷派（CoolPad） 5950 
+
+酷派（CoolPad） 5951 
+
+酷派（CoolPad） 7296S 
+
+酷派（CoolPad） 8085Q 
+
+酷派（CoolPad）5891Q 
+
+酷派（CoolPad） 8085Q 
+
+酷派（CoolPad） 7295+ 
+
+酷派（CoolPad） 7236 
+
+酷派（CoolPad） 8730L 
+
+酷派（CoolPad） 5930 
+
+酷派（CoolPad） 7295C 
+
+酷派（CoolPad） 9080W 
+
+酷派（CoolPad） 5216S 
+
+酷派（CoolPad） 7320 
+
+酷派（CoolPad） 5219 
+
+酷派（CoolPad） 大观4mini 
+
+酷派（CoolPad） 8295C 
+
+酷派（CoolPad） 8089 
+
+酷派（CoolPad） 7295A 
+
+酷派（CoolPad） 8720L 
+
+酷派（CoolPad） 5219 
+
+酷派（CoolPad） 7270 
+
+酷派（CoolPad） 7296S 
+
+酷派（CoolPad） 8076D 
+
+酷派（CoolPad） 7270 
+
+酷派（CoolPad） 5879 
+
+酷派（CoolPad）5891Q 
+
+酷派（CoolPad） K1 
+
+酷派（CoolPad） 7298D 
+
+酷派（CoolPad） 7295C-C00 
+
+酷派（CoolPad） 7232 
+
+酷派（CoolPad） 5109 
+
+酷派（CoolPad） 7060 
+
+联想（Lenovo） S898T 
+
+联想（Lenovo） A670T 
+
+联想（Lenovo） K900 
+
+联想（Lenovo） 黄金斗士S8 
+
+联想（Lenovo）P780 
+
+联想（Lenovo） A670T 
+
+联想（Lenovo） A308T 
+
+联想（Lenovo）VIBE Z K910 
+
+联想（Lenovo） A586 
+
+联想（Lenovo） A820 
+
+联想（Lenovo） S820 
+
+联想（Lenovo） A390T 
+
+联想（Lenovo） A678T 
+
+联想（Lenovo） S820 
+
+联想（Lenovo） S898T 
+
+联想（Lenovo） A678T 
+
+联想（Lenovo） A305e 
+
+联想（Lenovo） S920 
+
+联想（Lenovo） VIBE Z K910e 
+
+联想（Lenovo） S720i  
+
+联想（Lenovo） A860e 
+
+联想（Lenovo） A706 
+
+联想（Lenovo） A828T 
+
+联想（Lenovo） A788T 
+
+联想（Lenovo） A378T 
+
+联想（Lenovo） S820e 
+
+联想（Lenovo） S720 
+
+联想（Lenovo） A360e 
+
+联想（Lenovo） A770e 
+
+联想（Lenovo） A850 
+
+联想（Lenovo） A660 
+
+联想（Lenovo） A830 
+
+联想（Lenovo） A388T 
+
+联想（Lenovo） A516 
+
+联想（Lenovo） 乐Phone S880i 
+
+联想（Lenovo） A850+ 
+
+联想（Lenovo） A750e 
+
+联想（Lenovo） A300T 
+
+联想（Lenovo） A890e 
+
+联想（Lenovo） A385e 
+
+联想（Lenovo） S860 
+
+联想（Lenovo） S939 
+
+联想（Lenovo） S810T 
+
+联想（Lenovo） S938T 
+
+联想（Lenovo） A269i 
+
+努比亚（Nubia） 小牛2 Z5S mini 
+
+努比亚（Nubia） 大牛 Z5S 
+
+中兴（ZTE） U930HD 
+
+中兴（ZTE） U817 
+
+中兴（ZTE） 红牛 V5 
+
+中兴（ZTE） U288 
+
+中兴（ZTE） V965 
+
+中兴（ZTE） 极客Geek U988S 
+
+中兴（ZTE） Q705U 
+
+中兴（ZTE） U879  
+
+中兴（ZTE） 星星1号 STAR1 
+
+中兴（ZTE） U793  
+
+中兴（ZTE） 天机 GRAND SII  
+
+中兴（ZTE） Q201T 
+
+中兴（ZTE） MEMO U5S 
+
+中兴（ZTE） U889 
+
+中兴（ZTE） U809 
+
+中兴（ZTE） MEMO V5S 
+
+中兴（ZTE） Grand Memo U5 
+
+中兴（ZTE） U968 
+
+中兴（ZTE） Q701C 
+
+中兴（ZTE） U807N 
+
+中兴（ZTE） 青漾2 G718C 
+
+魅族 MX3 
+
+魅族 MX2 
+
+索尼（Sony） Xperia C S39h 
+
+索尼（Sony） Xperia SP M35C 
+
+索尼（Sony） Xperia C S39h 
+
+Xperia Z2 L50t 
+
+索尼（Sony） T2 XM50h 
+
+索尼（Sony） Xperia ZR M36h 
+
+索尼（Sony） Xperia T2 XM50t Ultra 
+
+索尼（Sony） Z1 M51w 
+
+索尼（Sony） Z2 L50u 
+
+索尼（Sony） Xperia C S39h 
+
+索尼（Sony）（SONY）M2 S50h 
+
+一加 
+
+优思(Uniscope) U1201 
+
+优思(Uniscope) U966 
+
+优思(Uniscope)US999+ 
+
+OPPO X9007 Find 7 
+
+OPPO U707T  
+
+OPPO R831S 
+
+OPPO N5117 N1 mini 
+
+OPPO R2017 
+
+OPPO X9000 Find 7 
+
+小辣椒 红辣椒 
+
+小辣椒 红辣椒青春版 
+
+小辣椒 LA3S 
+
+飞利浦（Philips） W736 
+
+飞利浦（Philips） W632  
+
+飞利浦（Philips） W3500 
+
+飞利浦（Philips） W6618 
+
+欧奇（ouki）A5 
+
+TCL idol X+ S960T 
+
+TCL Hero N3 Y910T 
+
+TCL idol X 
+
+TCL 么么哒 S720 
+
+立丰（lephone）TD9268 
+
+奥克斯（AUX）i6T 
+
+奥克斯（AUX） V999 
+
+奥克斯（AUX）战神X1 
+
+奥克斯（AUX） V950 
+
+奥克斯（AUX） I7 
+
+LG G Flex D958 
+
+LG E985T 
+
+夏朗（NAMO） N880 
+
+夏朗（NAMO） NX3 
+
+夏朗（NAMO） N860 
+
+波导 I9 
+
+波导 i600 
+
+波导 S6 
+
+天语（K-Touch） W68 
+
+天语（K-Touch） 小黄蜂2代 T619+ 
+
+天语（K-Touch） U83t 
+
+天语（K-Touch） T60 
+
+天语（K-Touch） W70 
+
+天语（K-Touch） T93 
+
+天语（K-Touch） W96 
+
+天语（K-Touch） W98 
+
+果冻N9008 
+
+果冻S8 
+
+夏新（Amoi） A900T  
+
+夏新（Amoi） A900W 
+
+夏新（Amoi） V2 A920T 
+
+夏新（Amoi） V2X A928W 
+
+夏新（Amoi） V2X A928T 
+
+夏新（Amoi） V2X A920T 
+
+夏新（Amoi） A955T  
+
+朵唯（DOOV） C9 
+
+朵唯（DOOV） S2Y 
+
+朵唯（DOOV） D800 
+
+朵唯（DOOV） D330 
+
+为美 M6 
+
+神舟（HASEE） 灵雅X50 TS 
+
+神舟（HASEE） 灵雅H45 T3 
+
+神舟（HASEE） 灵雅X60 TS 
+
+神舟（HASEE） 灵雅E50 S1 
+
+神舟（HASEE） 灵雅E50 S1 
+
+神舟（HASEE） 灵雅H45 T1 
+
+金立（Gionee） W800 
+
+金立（Gionee） GN600 
+
+新中桥（NCBC） P100  
+
+乐派 C1 
+
+尼彩 LT16  
+
+IUNI U2 
+
+恒宇丰 HYF988  
+
+贝尔丰（BIFER） T16 
+
+诺亚信（NOAIN）A909 
+
+诺亚信（NOAIN）T300 
+
+金立（Gionee） ELIFE S5.5 
+
+ELIFE E6 
+
+ELIFE 大眼 E7 
+
+ELIFE E6T 
+
+誉品（YEPEN） G1 
+
+海信（Hisense） T978 
+
+海信（Hisense） T980 
+
+海信（Hisense） T968S 
+
+海信（Hisense） MIRA T970 
+
+海信（Hisense） T929  
+
+海信（Hisense） U936 
+
+博瑞 旅行者T5 
+
+德赛（DESAY） TS1008 
+
+100 ＋V6 
+
+美菱 I9300 
+
+派信 ZDR I99 
+
+大Q Q1 
+
+宸通（CENTER）CT99 
+
+朗格 小爱M2 
+
+大可乐（dakele） 小可乐DKL01 
+
+NUU NU3 
+
+爱我 lovme-X18 
+
+海尔 超级战舰 W910  
+
+斐讯 阅丰2S 
+
+斐讯 阅丰读者2X 
+
+迪士尼（Disney） magic2 M7009 
+
+Q米 
+
+惠普（HP） Slate6 
+
+E派 小采 S8 
+
+华硕(ASUS） FonePad FE7010CG 
+
+康佳（KONCA） 凡高 V981 
+
+康佳（KONCA） V980 
+
+卓酷 K7 
+
+芭比 R82 
+
+盛况 菜刀C6S 
+
+HIKe X1 828 
+
+七喜 H750 
+
+七喜 H770 
+
+小艾 I9T 
+
+ATET 
+
+同洲 960E 
+
+摩奇 i5 
+
+EMOTO E868 
+
+大唐 I318 
+
+影驰 S6 
+
+摩托罗拉（Motorola） XT788 
+
+摩托罗拉（Motorola） MT788 
+
+摩托罗拉（Motorola） XT531 
+
+摩托罗拉（Motorola） XT550 
+
+摩托罗拉（Motorola） ME525 
+
+摩托罗拉（Motorola） XT883 
+
+摩托罗拉（Motorola） XT928 
+
+摩托罗拉（Motorola） XT882 
+
+摩托罗拉（Motorola） XT889 
+
+摩托罗拉（Motorola） XT910 MAXX 
+
+摩托罗拉（Motorola） XT910 
+
+摩托罗拉（Motorola） XT912 
+
+摩托罗拉（Motorola） XT917 
