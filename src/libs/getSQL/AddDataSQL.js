@@ -1,36 +1,40 @@
 let errorCode = require('../ErrorCode/code.json')
 
 /**
- * 保存数据 - SQL转换
- * @param {string} id_name            表id字段的名称
- * @param {string} table_namedata     表
+ * save data
+ * @param {any} self           table info
+ * @param {string} rowsData    multiple rows of data
  */
-const AddDataSQL = function(self, rowDatas){  let args = format(self.id_name, rowDatas, self.dbConstruct)
+const AddDataSQL = function(self, rowsData){  
+  let args = format(self.id_name, rowsData, self.dbConstruct)
 
   if(args && args.length){
     let tableTitle = `${self.table_name}(` + Object.keys(self.dbConstruct).join(",") + ')'
     let v = getValues(args)
-    // console.log(v)
     let sql = `INSERT INTO ${tableTitle} VALUES${v}`;
     return sql
   }else{
     return errorCode['100001']
   }
-
 }
 
-// 规范数据结构
-function format(id_name, rowDatas, dbConstruct){
-  let datas = rowDatas && Array.isArray(rowDatas) ? rowDatas : [rowDatas]
+/**
+ * Canonical data structure
+ * @param {*} idName 
+ * @param {*} rowsData 
+ * @param {*} dbConstruct 
+ */
+function format(idName, rowsData, dbConstruct){
+  let newData = rowsData && Array.isArray(rowsData) ? rowsData : [rowsData]
   let args = [];
-  // 根据表结构调整顺序, 新增 id
-  for (let i = 0; i < datas.length;i++){
-    let row = datas[i]
-    if(row && !row[id_name]){
-      delete dbConstruct[id_name]
+  // Adjust the order according to the table structure, add id
+  for (let i = 0; i < newData.length;i++){
+    let row = newData[i]
+    if(row && !row[idName]){
+      delete dbConstruct[idName]
     }
     // console.log(dbConstruct, '======')
-    // row[id_name] = row[id_name] ? row[id_name] : uuid(15)
+    // row[idName] = row[idName] ? row[idName] : uuid(15)
     if(row){
       let arg = sortArg(row, dbConstruct);
       args.push(arg)
@@ -40,11 +44,14 @@ function format(id_name, rowDatas, dbConstruct){
   return args
 }
 
-// 根据数据生成 sql 语句
+/**
+ * Generate sql statement
+ * @param {*} args 
+ */
 function getValues(args){ // [{a: '111', b:'222'}]  || {a: '111', b:'222'}
   if(!Array.isArray(args)){getValues([args])}
   let v = ""
-  let signal = "'" // 写死为单引号
+  let signal = "'" // Hard-coded as single quotes
   for(let i=0;i<args.length;i++){
     let newVal = ''
     let vs = args[i]
@@ -52,13 +59,14 @@ function getValues(args){ // [{a: '111', b:'222'}]  || {a: '111', b:'222'}
     keyObj.forEach(function (value, index) {
       if(value || value === 0 || typeof value === 'string'){
 
-        // 特殊处理单双引号
-        if(signal==="'" && typeof value === 'string' && value.includes("'")){ // 同时有双引号和单引号 替换所有单引号为双引号
+        // Special treatment of single and double quotes
+        // There are double quotes and single quotes at the same time Replace all single quotes with double quotes
+        if(signal==="'" && typeof value === 'string' && value.includes("'")){
           value = value.replace(/\'/g, '"')
         }
 
         newVal += signal + value + signal
-      }else{ // value值不存在的统一变为null
+      }else{ // If the value does not exist, the unity becomes null
         newVal += null
       }
       if(keyObj.length !== index+1){
@@ -74,7 +82,11 @@ function getValues(args){ // [{a: '111', b:'222'}]  || {a: '111', b:'222'}
   return v // ("111","2222",null);
 }
 
-// 根据表结构调整参数顺序
+/**
+ * Adjust the parameter order according to the table structure
+ * @param {*} data 
+ * @param {*} dbEnum 
+ */
 function sortArg(data, dbEnum) {
   let ArgEnum = Object.keys(dbEnum);
   let newData = {}
@@ -87,8 +99,8 @@ function sortArg(data, dbEnum) {
 module.exports = AddDataSQL
 
 // let test = AddDataSQL('userid', 'user', {
-//   username: "张三",
-//   password: "王五"
+//   username: "Make",
+//   password: "Moo"
 // },{
 //   userid: "",
 //   username: "",

@@ -4,7 +4,7 @@ let pools = {};               // 所有数据库连接进程池
 let env = 'dev'
 /**
  * sql 查询数据库
- * @param {*} database 数据库名称
+ * @param {*} msconfig 数据库名称
  */
 function db_operation(msconfig) {
   let database = msconfig.database
@@ -30,9 +30,11 @@ function db_operation(msconfig) {
 db_operation.prototype.insert = function (sql, text) {
   let me = this
 
+  // @ts-ignore
   this._debug(sql)
 
   return new Promise(function (resolve, reject) {
+    // @ts-ignore
     me._getConnetion(sql, function (err, result, fields) {
       // console.log(result, 'ppppp')
       if (err) {
@@ -50,16 +52,17 @@ db_operation.prototype.insert = function (sql, text) {
 
 /**
  * 删除数据库数据
- * @param {*} tableName 表名称
- * @param {*} where     条件判断
+ * @param {*} sql       表名称
  * @param {*} text      提示文字
  */
 db_operation.prototype.delete = function (sql, text) {
   let me = this;
 
+  // @ts-ignore
   this._debug(sql)
 
   return new Promise(function (resolve, reject) {
+    // @ts-ignore
     me._getConnetion(sql, function (err, result, fields) {
       if (err) {
         reject(err);
@@ -76,16 +79,17 @@ db_operation.prototype.delete = function (sql, text) {
 
 /**
  * 更新数据库数据
- * @param {*} tableName 表的名称
- * @param {*} args      查询条件
+ * @param {*} sql 表的名称
  * @param {*} text      提示文字
  */
 db_operation.prototype.update = function (sql, text) {
   let me = this;
 
+  // @ts-ignore
   this._debug(sql)
 
   return new Promise(function (resolve, reject) {
+    // @ts-ignore
     me._getConnetion(sql, function (err, result, fields) {
       if (err) {
         reject(err);
@@ -110,9 +114,11 @@ db_operation.prototype.update = function (sql, text) {
 db_operation.prototype.select = function (sql, text) {
   let me = this;
 
+  // @ts-ignore
   this._debug(sql)
 
   return new Promise(function (resolve, reject) {
+    // @ts-ignore
     me._getConnetion(sql, function (err, result, fields) {
       if (err) {
         reject(err);
@@ -130,9 +136,11 @@ db_operation.prototype.select = function (sql, text) {
 db_operation.prototype.client = function (sql) {
   let me = this;
 
+  // @ts-ignore
   this._debug(sql)
 
   return new Promise(function (resolve, reject) {
+    // @ts-ignore
     me._getConnetion(sql, function (err, result, fields) {
       if (err) {
         reject(err);
@@ -154,6 +162,7 @@ db_operation.prototype.client = function (sql) {
 // 简单 sql 连接 promise 返回、释放
 db_operation.prototype.query = function(sql) {
   let me = this;
+  // @ts-ignore
   return new Promise(function(resolve, reject){
     me._getConnetion(sql, function (err, results) {
       if(err){logger.error(err)}
@@ -168,7 +177,7 @@ db_operation.prototype.query = function(sql) {
 db_operation.prototype._getConnetion = function (sql, cb) {
   this.pool.getConnection(function (err, connection) {
     if (err) {
-      // logger.error(err);
+      logger.error(err);
       logger.debug("db connetion failed")
     } else {
       connection.query(sql, function (error, results, fields) {
@@ -192,6 +201,6 @@ db_operation.prototype._debug = function (sql) {
   }
 }
 
-db_operation.prototype._pools = pools
+db_operation.pools = pools
 
 module.exports = db_operation

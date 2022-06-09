@@ -1,7 +1,8 @@
 /**
- * 创建表
- * @param {*} table_name 表名
- * @param {*} db_construct 表字段
+ * Create database table
+ * @param {*} self
+ * @param {*} table_name
+ * @param {*} db_construct
  */
 const CreateDBTable = function(self, table_name, db_construct){
   let fields = Object.keys(db_construct)

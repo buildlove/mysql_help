@@ -9,3 +9,7 @@ userTable.getAllRows().then(function(data){
 
 // npm version 2.1.21
 // npm publish
+
+// 如果登陆不上
+// 用户名: npm whoami
+// 密码: github密码

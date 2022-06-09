@@ -9,7 +9,7 @@ class getSQLStr {
     this.config = cf ? cf : this._getCacheConfig();
     const dbConstruct = this.config.dbConstruct;
     if (!dbConstruct[tableName]) {
-      logger.error('数据库中不存在' + tableName + '表');
+      logger.error('Not exist in the database(' + tableName + ')');
       return;
     }
     this.db_name = this.config.mysql.database;
@@ -27,121 +27,102 @@ class getSQLStr {
       mysql: mConfig,
     };
   };
+
   commonFun() {
     return common
   }
 
-  // 聚合单个字段
-  AggregSQL (field) {
-    return SQL.AggregSQL(this, field)
+  AggregSQL (field, where) {
+    return SQL.AggregSQL(this, field, where)
   }
 
-  // 添加数据
   addDataSQL (rowDatas) {
     return SQL.AddDataSQL(this, rowDatas);
   }
 
-  // 创建数据库
   createDBSQL (db_name) {
     return SQL.CreateDatabaseSQL(db_name);
   }
 
-  // 创建数据表
   createTableSQL (table_name, db_construct) {
     return SQL.CreateDBTable(this, table_name, db_construct);
   }
 
-  // 按照字段名和字段数据删除多条数据
   deleteRowsByIndexSQL (index, field) {
     return SQL.DeleteRowsSQL(this, index, field);
   }
 
-  // 按照 id 删除单条数据
   deleteRowByIdSQL (id, field) {
     return SQL.DeleteRowsSQL(this, id, field);
   }
 
-  // 按照 ids 删除多条数据
   deleteRowsByIdsSQL (ids, field) {
     return SQL.DeleteRowsSQL(this, ids, field);
   }
 
-  // 获取所有(数据库, 表)的字段名称
   getAllColumnNameSQL () {
     return SQL.GetAllColumnName(this);
   }
 
-  // 获取表内所有数据
   getAllRowsSQL (where) {
     return SQL.GetAllRowsSQL(this, where);
   }
-  // 获取数据库内所有表名称
+
   getAllTableNameSQL () {
     return SQL.GetAllTableNameSQL(this);
   }
 
-  // 通过 id 获取数据
-  getRowByIdSQL (id) {
-    return SQL.GetRowsByIdsSQL(this, id);
+  getRowByIdSQL (id, where) {
+    return SQL.GetRowsByIdsSQL(this, id, where);
   }
 
-  // 通过 ids 获取数据
-  getRowsByIdsSQL (ids) {
-    return SQL.GetRowsByIdsSQL(this, ids);
+  getRowsByIdsSQL (ids, where) {
+    return SQL.GetRowsByIdsSQL(this, ids, where);
   }
 
-  // 通过 字段名称如name:zhangsan 获取数据
   getRowByIndexSQL (name, fieldname) {
     return SQL.GetRowsByIdsSQL(this, name, fieldname);
   }
 
-  // 通过 name:['张三', '李四'] 获取数据
   getRowsByIndexSQL (names, fieldname) {
     return SQL.GetRowsByIdsSQL(this, names, fieldname);
   }
 
-  // 分页获取数据('usre','5','10') 第五页每页10条
-  getRowsByPageSQL (pageNum, everyPageNum) {
-    return SQL.GetRowsByPageSQL(this, pageNum, everyPageNum);
+  getRowsByPageSQL (current, size, order, where) {
+    return SQL.GetRowsByPageSQL(this, current, size, order, where);
   }
 
   // wherefield:{userid: 123}
-  getRowsByPageWSQL (pageNum, everyPageNum, wherefield) {
-    return SQL.GetRowsByPageSQL(this, pageNum, everyPageNum, wherefield);
+  getRowsByPageWSQL (current, size, order, where) {
+    return SQL.GetRowsByPageSQL(this, current, size, order, where);
   }
 
-  // 通过条件获取数据('user', {name: 'zhangshan', sex: 'man', te: '333'}, 'or'))
+  // ('user', {name: 'zhangshan', sex: 'man', te: '333'}, 'or'))
   getRowsByWhereSQL (field, orAnd) {
     return SQL.GetRowsByWhereSQL(this, field, orAnd);
   }
 
-  // 获取表的总条数
   getCountSQL (whereField){
     // console.log(whereField)
     return SQL.GetCountSQL(this, whereField);
   }
 
-  // 查询是否存在数据库
   isExistDBSQL () {
     return SQL.IsExistDBSQL(this);
   }
 
-  // 更新数据表
   updateRowSQL (rowData) {
     return SQL.UpdateRowSQL(this, rowData);
   }
 
-  // 更新多行
   updateRowsSQL (rowDatas) {
     return SQL.UpdateRowsSQL(this, rowDatas);
   }
 
-  // 更新同一字段为同一值
   UpdateSameField (field, whereField) {
     return SQL.UpdateSameField(this, field, whereField);
   }
 
-  // 模糊匹配整张表或传入的单个字段
   getRowsByLikeSQL (fields, key) {
     return SQL.GetRowsByLikeSQL(this, key, fields )
   }

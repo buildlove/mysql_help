@@ -1,10 +1,11 @@
 /**
- * 获取所有数据库表的字段名称
- * @param {*} db_name 数据库名称
- * @param {*} table_name 表名称
+ * Get the field names of all database tables
+ * @param {any} self Name database 
+ * @param {any} tableName Name database 
  */
-const GetAllColumnName = function(self, table_name){
-  let sql = `select column_name from information_schema.columns where table_schema='${self.database}' and table_name='${table_name}'`;
+const GetAllColumnName = function(self, tableName){
+  const name = tableName ? tableName : self.table_name
+  let sql = `select column_name from information_schema.columns where table_schema='${self.database}' and table_name='${self.table_name}'`;
   return sql
 }
 

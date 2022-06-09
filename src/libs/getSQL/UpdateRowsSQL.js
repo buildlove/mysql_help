@@ -1,23 +1,19 @@
 
 /**
- * 在一张表中更新多条数据
- * @param {*} table_name 表名称
- * @param {*} id_name 表id  
- * @param {*} dbConstruct 表的数据结构
- * @param {*} rowDatas 传入数据
+ * Update multiple database data
+ * @param {*} self
+ * @param {*} rowsData
  */
-const UpdateRowsSQL = function(self, rowDatas){
-  console.log(rowDatas)
+const UpdateRowsSQL = function(self, rowsData){
   let SQL = `UPDATE ${self.table_name} SET \n`
   let KEYS = Object.keys(self.dbConstruct)
-  console.log(KEYS)
   let reduce = false
   KEYS.forEach(function (key, index) {
     let fieldSQL = ""
     if(key !== self.id_name){
       fieldSQL += `${key} = CASE ${self.id_name} \n`
       let one = false
-      rowDatas.forEach(function (rowData) {
+      rowsData.forEach(function (rowData) {
         if(rowData[key]){
           fieldSQL += `WHEN '${rowData[self.id_name]}' THEN '${rowData[key]}' \n`
           one = true
@@ -31,12 +27,12 @@ const UpdateRowsSQL = function(self, rowDatas){
     }
     console.log(fieldSQL)
   })
-  // 去掉,
+  // delete
   if(reduce){
     SQL = SQL.substring(0, SQL.length - 2);
     SQL += ' '
   }
-  let ids = rowDatas.map(function(item){return item[self.id_name]})
+  let ids = rowsData.map(function(item){return item[self.id_name]})
   let inIDs = "'" + ids.join("', '") + "'"
   SQL += `WHERE ${self.id_name} IN (${inIDs})`
   return SQL

@@ -1,5 +1,10 @@
 let {deepClone} = require('../../common.js')
 
+/**
+ * Update a single database data
+ * @param {*} self 
+ * @param {*} rowData 
+ */
 const UpdateRowSQL = function(self, rowData){
   let construct = deepClone(self.dbConstruct)
   delete construct[self.id_name]
@@ -10,13 +15,18 @@ const UpdateRowSQL = function(self, rowData){
   return sql
 }
 
+/**
+ * Processing parameters
+ * @param {*} keys 
+ * @param {*} obj 
+ */
 function assignSqlArg(keys, obj) {
   let result = []
   let ex = Object.keys(obj);
-  keys.forEach((key) => {
-    let value = obj[key] ? obj[key] : null;
-    if (value || ex.includes(key)) {
-      result.push(`${key}='${value}'`)
+  keys.forEach((k) => {
+    let value = obj[k] ? obj[k] : null;
+    if (value || ex.includes(k)) {
+      result.push(`${k}='${value}'`)
     }
   });
   return result

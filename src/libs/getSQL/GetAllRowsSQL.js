@@ -1,13 +1,14 @@
 let { whereField } = require('../../common.js')
 
 /**
- * 获取整张表的数据
- * @param {*} table_name 表名
+ * Get the entire table of the database
+ * @param {any} self 
+ * @param {*} where
  */
-const GetAllRowsSQL = function(self, wherefield){
+const GetAllRowsSQL = function(self, where){
   let dbConstructKey = self.dbConstruct ? Object.keys(self.dbConstruct) : false
-  let where = whereField(wherefield, dbConstructKey) ? ` where ${whereField(wherefield, dbConstructKey)}`:""
-  let sql = `select * from ${self.table_name}${where}`;
+  let w = whereField(where, dbConstructKey) ? ` where ${whereField(where, dbConstructKey)}`:""
+  let sql = `select * from ${self.table_name}${w}`;
   return sql
 }
 

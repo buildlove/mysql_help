@@ -1,3 +1,4 @@
+// @ts-nocheck
 'use strict';
 
 const operation = require('./src/db.operation');
@@ -49,14 +50,14 @@ class mysql_help extends getSQLStr{
   }
 
   // 新增单条
-  addRow(rowDatas) {
-    const sqlResult = SQL.AddDataSQL(this, rowDatas);
+  addRow(rowsData) {
+    const sqlResult = SQL.AddDataSQL(this, rowsData);
     return this.db_operation.insert(sqlResult, this.textTip.create);
   }
 
   // 新增多条数据
-  addRows(rowDatas) {
-    const sqlResult = SQL.AddDataSQL(this, rowDatas);
+  addRows(rowsData) {
+    const sqlResult = SQL.AddDataSQL(this, rowsData);
     return this.db_operation.insert(sqlResult, this.textTip.create);
   }
 
@@ -67,8 +68,8 @@ class mysql_help extends getSQLStr{
   };
 
   // 分页查询
-  getRowsByPage(pageNum, everyPageNum, orderfield, wherefield) {
-    const sql = SQL.GetRowsByPageSQL(this, pageNum, everyPageNum, orderfield, wherefield);
+  getRowsByPage(current, size, order, where) {
+    const sql = SQL.GetRowsByPageSQL(this, current, size, order, where);
     return this.db_operation.select(sql, this.textTip.find);
   };
 
@@ -84,6 +85,15 @@ class mysql_help extends getSQLStr{
     const sql = SQL.GetRowsByIdsSQL(this, id, otherField);
     console.log(sql, '======')
     return this.db_operation.select(sql, this.textTip.find);
+  };
+
+  getRowById(id, otherField) {
+    const sql = SQL.GetRowsByIdsSQL(this, id, otherField);
+    return new Promise((resolve, reject)=> {
+      this.db_operation.select(sql, this.textTip.find).then((data)=> {
+        resolve({...data, result: data.result[0]})
+      })
+    });
   };
 
   // 获取整张表的条数
@@ -124,16 +134,16 @@ class mysql_help extends getSQLStr{
 
   /**
    * 根据任意字段更新相关数据
-   * @param {*} rowDatas <object> 需要更新的数据集 必须要存在id字段
+   * @param {*} rowsData <object> 需要更新的数据集 必须要存在id字段
    */
-  updateRows(rowDatas) {
-    const sql = SQL.UpdateRowsSQL(this, rowDatas);
+  updateRows(rowsData) {
+    const sql = SQL.UpdateRowsSQL(this, rowsData);
     return this.db_operation.client(sql);
   };
 
   /**
    * 根据任意字段更新相关数据
-   * @param {*} rowDatas <object> 需要更新的数据集 必须要存在id字段
+   * @param {*} rowsData <object> 需要更新的数据集 必须要存在id字段
    */
   updateSameField(field, whereField) {
     const sql = SQL.UpdateSameField(this, field, whereField);
@@ -153,8 +163,8 @@ class mysql_help extends getSQLStr{
   };
 
   // 按照字段名和字段数据删除多条数据
-  deleteRowsByIndex (indexs, field) {
-    const sql = SQL.DeleteRowsSQL(this, indexs, field);
+  deleteRowsByIndex (index, field) {
+    const sql = SQL.DeleteRowsSQL(this, index, field);
     return this.db_operation.delete(sql, this.textTip.delete);
   }
 
@@ -183,9 +193,13 @@ mysql_help.config = function(config, cb) {
       dbConstruct: r.config.dbEnum,
     };
     if (cb) {
+      console.log(newCf);
       cb(newCf);
     }
   });
+  console.log()
 };
+
+mysql_help.pools = operation.pools
 
 module.exports = mysql_help;

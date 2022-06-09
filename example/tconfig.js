@@ -13,10 +13,9 @@ mysql_help.config({
   let userTable = new mysql_help('user')
   // userTable.getAllRows().then(function(data){
   // })
-  // let userTable = new mysql_help('user')
   // console.log(userTable.getCountSQL({ddd:'ddd'}))
   // let sql = userTable.GetCountSQL(cf, {case_id: 2})
-
+  userTable.addRow({userid: '123123123', username, password: showPassWord, authorized: 0})
   userTable.end()
 })
 

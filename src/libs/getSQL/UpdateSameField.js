@@ -1,14 +1,19 @@
-// 更新同一字段为某值
 let { whereField } = require('../../common.js')
 
-const UpdateSameField = function(self, field, wherefield){
+/**
+ * Update the same field to a certain value
+ * @param {*} self 
+ * @param {*} field 
+ * @param {*} where 
+ */
+const UpdateSameField = function(self, field, where){
   let dbConstructKey = self.dbConstruct ? Object.keys(self.dbConstruct) : false
-  let where = whereField(wherefield, dbConstructKey) ? `where ${whereField(wherefield, dbConstructKey)}`:""
+  let w = whereField(where, dbConstructKey) ? `where ${whereField(where, dbConstructKey)}`:""
   let p = ''
   for( var key in field ){
     p = `${key} = '${field[key]}'`
   }
-  let sql = `UPDATE ${self.table_name} SET ${p} ${where}`
+  let sql = `UPDATE ${self.table_name} SET ${p} ${w}`
   return sql
 }
 

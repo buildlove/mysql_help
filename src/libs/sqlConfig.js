@@ -1,6 +1,6 @@
 'use strict';
 
-// 配置 mysql_help 数据库和数据表结构
+// Configure mysql_help database and data table structure
 const operation = require('../db.operation');
 const logger = require('../logger');
 const path = require('path');
@@ -22,15 +22,15 @@ const sqlConfig = async function(config, cb) {
     fs.mkdirSync(fileDir);
   }
   if (!config || !config.mysql) {
-    logger.error('参数错误: 没有配置数据库参数');
+    logger.error('Parameter error: No configuration database parameters');
     return;
   }
   if (!config.mysql.database) {
-    logger.error('参数错误: 数据库名称未传入');
+    logger.error('Parameter error: database name is not passed in');
     return;
   }
 
-  const [ empty, p ] = dbValidEmpty(config.mysql);
+  const [ empty, p=[] ] = dbValidEmpty(config.mysql);
 
   if (!empty) {
     if (!fs.existsSync(fileDir)) {
@@ -40,15 +40,16 @@ const sqlConfig = async function(config, cb) {
       await fsWriteFile(fileDir, 'config.json', JSON.stringify(config.mysql));
     }
   } else {
-    logger.error(`参数错误: 数据库配置:${p.length ? p + '为空' : '不存在或缺少字段'}`);
+    // @ts-ignore
+    logger.error(`Parameter error: database configuration: ${p && p.length ? p + 'Is null' : 'Missing or missing field'}`);
     return;
   }
   if(config.mysql.env === 'dev'){
     logger.debug(config.mysql)
   }
-  const dbEnum = await get_db_struction(config.mysql);
+  const dbEnum = await getDbStruction(config.mysql);
 
-  // 使用传入表数据和读取数据表数据混合
+  // Use the mix of incoming table data and read data table data
   if (config.tables) {
     Object.keys(config.tables).forEach(function(key) {
       if (!dbEnum[key]) {
@@ -67,24 +68,24 @@ const sqlConfig = async function(config, cb) {
   cb(mysql_config);
 };
 
-// 如果数据库不存在 创建数据库和按字段创建表
+// If the database does not exist, create a database and create a table by field
 async function initDataBase(dbEnum, config) {
   let db_operation = new operation(config.mysql);
   const isExistSql = IsExistDBSQL(config.mysql);
-  const exist = await db_operation.select(isExistSql);
+  const exist = await db_operation.select(isExistSql, '');
   if (!exist.status) {
     const createDBSQL = CreateDatabaseSQL(config.mysql);
-    await db_operation.select(createDBSQL); // 创建数据库
+    await db_operation.select(createDBSQL, ''); // Create database
 
-    // 实例化连接数据库
+    // Instantiate to connect to the database
     db_operation = new operation(config.mysql);
     const dbEnumKeys = Object.keys(dbEnum);
     const dbPromise = [];
     if (dbEnumKeys && dbEnumKeys.length) {
-      // 表结构存在的情况下按照表字段创建表
+      // Create a table according to the table fields when the table structure exists
       dbEnumKeys.forEach(function(tableName) {
         const createDBTableSQL = CreateDBTable(config.mysql, tableName, dbEnum[tableName]);
-        const tab = db_operation.insert(createDBTableSQL);
+        const tab = db_operation.insert(createDBTableSQL, '');
         dbPromise.push(tab);
       });
       Promise.all(dbPromise).then(function(result) {
@@ -96,15 +97,15 @@ async function initDataBase(dbEnum, config) {
   }
 }
 
-// 根据数据库名称 获取数据库内的表名称和表里面的字段名称
-async function get_db_struction(mysql) {
+// Get the table name in the database and the field name in the table according to the database name
+async function getDbStruction(mysql) {
   const tablesSQL = GetAllTableNameSQL(mysql);
   const db_operation = new operation(mysql);
   const results = await db_operation.query(tablesSQL);
-  // console.log("获取所有数据库表名", results)
+  // console.log("Get all database table names", results)
   const db_struction = {};
   results.forEach(function(RowDataPacket) {
-    // mac 下 为大写TABLE_NAME  linux下为小写table_name
+    // mac -> TABLE_NAME  linux -> table_name
     const columnSQL = GetAllColumnName(mysql, RowDataPacket.TABLE_NAME || RowDataPacket.table_name);
     db_struction[RowDataPacket.TABLE_NAME || RowDataPacket.table_name] = db_operation.query(columnSQL);
   });
@@ -120,12 +121,13 @@ async function get_db_struction(mysql) {
           const R = allR[j];
           db_struction[keys[i]][R.COLUMN_NAME || R.column_name] = '';
         }
-        // 查找primary key
+        // query primary key
         const kSQL = GetPrimaryKeySQL(keys[i]);
         const k = await db_operation.query(kSQL);
         if (k && k.length) {
 
-          // 数据结构内的唯一键不止一个时, 匹配当前数据结构存在的值
+          // When there is more than one unique key in the data structure, 
+          // match the value existing in the current data structure
           let columns = Object.keys(db_struction[keys[i]])
           let primary = false
           k.forEach(function(item){
@@ -142,7 +144,7 @@ async function get_db_struction(mysql) {
           logger.debug(keys[i] + ' 表没有查询到 primary 值')
         }
       }
-      // 结构化表结构写入 column.json表中
+      // Structured table structure is written into column.json table
       fsWriteFile('./config', 'column.json', JSON.stringify(db_struction)).then(function(r) {
         resolve(db_struction);
       });

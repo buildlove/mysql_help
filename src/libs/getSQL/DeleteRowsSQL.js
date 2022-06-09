@@ -1,13 +1,14 @@
 let { whereField } = require('../../common.js')
 
 /**
- * 根据任意字段删除相关数据
- * @param {string|Array<string>} whereItem 需要删除的 id
- * @param {string} field (可选)需要删除的字段名称
+ * Delete related data based on any field
+ * @param {any} self (Optional) The name of the field to be deleted
+ * @param {string|Array<string>} whereItem Id to be deleted
+ * @param {string} field (Optional) The name of the field to be deleted
  */
 const DeleteRowsSQL = function(self, whereItem, field){
   let field_name = field ? field : self.id_name;
-
+  let where = ''
 
   if (typeof whereItem === 'string') { 
 
@@ -27,7 +28,7 @@ const DeleteRowsSQL = function(self, whereItem, field){
     where = whereField(whereItem, dbConstructKey) ? `${whereField(whereItem, dbConstructKey)}`:""
 
   }
-  if(!where){console.log("参数错误", field)}
+  if(!where){console.log("Parameter error", field)}
   let sql = `delete from ${self.table_name} where ${where}`
   return sql
 }

@@ -1,9 +1,8 @@
-// 模糊匹配关键字 用于简单搜索单张表内的相关数据
+// Fuzzy match keywords
 // SELECT * FROM `sys_panel_case` WHERE CONCAT(`id`,`name`,`mobiletype`) LIKE '%ne%'
 
 /**
- * 需要模糊匹配的表字段
- * @param {Array||Object} dbConstruct 
+ * @param {any} dbConstruct 
  */
 function getFields(dbConstruct){
   let dbConstructKeys;
@@ -17,17 +16,19 @@ function getFields(dbConstruct){
 }
 
 /**
- * 获取数据通过页码和每条数目
- * @param <Array> field
+ * Fuzzy match keywords by page number and number of each
+ * @param {any} self 
+ * @param {any} key 
+ * @param {any} where 
  */
-const GetRowsByLikeSQL = function(self, key, field){
-  let where = ''
-  if(field && field.length){
-    where = getFields(field)
-  } else { // 默认匹配整张表的所有字段名称
-    where = getFields(self.dbConstruct)
+const GetRowsByLikeSQL = function(self, key, where){
+  let w = ''
+  if(where && where.length){
+    w = getFields(where)
+  } else { // Match all field names of the entire table by default
+    w = getFields(self.dbConstruct)
   }
-  let sql = `select * from ${self.table_name} ${where} '%${key}%'`
+  let sql = `select * from ${self.table_name} ${w} '%${key}%'`
 
   return sql
 }

@@ -2,13 +2,14 @@
 
 let { whereField } = require('../../common.js')
 /**
- * 获取整张表的数据
- * @param {*} table_name 表名
+ * Statistics on data according to conditions
+ * @param {any} self database info
+ * @param {any} where
  */
-const GetCountSQL = function(self, whereFi) {
+const GetCountSQL = function(self, where) {
   let dbConstructKey = self.dbConstruct ? Object.keys(self.dbConstruct) : false
-  let where = whereField(whereFi, dbConstructKey) ? ` where ${whereField(whereFi, dbConstructKey)}`:""
-  const sql = `SELECT COUNT(*) FROM ${self.table_name}${where}`;
+  let w = whereField(where, dbConstructKey) ? ` where ${whereField(where, dbConstructKey)}`:""
+  const sql = `SELECT COUNT(*) FROM ${self.table_name}${w}`;
   return sql;
 };
 
