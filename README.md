@@ -1,5 +1,7 @@
 # mysql_help
 
+文档链接 https://www.yuque.com/docs/share/411375d9-d449-43d1-921f-c338f3345afe
+
 ## QuickStart
 
 ### Development
@@ -66,3 +68,5 @@ other.js
 ```
 
 > 一张表只标记一个主键，当有多个主键时，按顺序标记第一个。
+
+
