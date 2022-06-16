@@ -2,6 +2,7 @@
   "author": {
     "name": "liyang"
   },
+  "version": "2.2.0",
   "bundleDependencies": false,
   "dependencies": {
     "koa": "^2.5.3",
@@ -20,11 +21,10 @@
     "mysql": "^2.16.0"
   },
   "license": "ISC",
-  "main": "app.js",
+  "main": "index.js",
   "name": "mysql_help",
   "scripts": {
     "dev": "nodemon",
     "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "version": "2.1.221"
+  }
 }
